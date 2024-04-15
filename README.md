@@ -35,6 +35,8 @@ Edit the `.env` file and add your Google Gemini API key under the key value pair
 It will install all of the required python packages and start the FastAPI dev server with hot reload
 
 ## System Architecture
+![draft_diagram](https://github.com/bktfuture/gemini-hack/assets/62050214/87b00886-0162-412a-8307-95ea30f7612c)
 
-![scuffed system architecture diagram](https://github.com/bktfuture/gemini-hack/assets/44078850/44e7b5a1-d80c-4334-9638-f586103f3629)
+
+
 
