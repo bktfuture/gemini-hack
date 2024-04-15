@@ -26,8 +26,11 @@ Run the following commands inside of the repo directory (`gemini-hack`)
 
 ```bash
 cd nextjs-fastapi
+touch api/.env
 npm run fastapi-dev
 ```
+
+Edit the `.env` file and add your Google Gemini API key under the key value pair `GEMINI_API_KEY=<API KEY HERE>`. Get the Gemini API key [here](https://ai.google.dev)
 
 It will install all of the required python packages and start the FastAPI dev server with hot reload
 
