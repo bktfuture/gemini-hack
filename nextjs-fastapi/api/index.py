@@ -1,25 +1,11 @@
 from fastapi import FastAPI
-import google.generativeai as genai
-from dotenv import load_dotenv
-import os
-
-# Load environment variables from .env file
-load_dotenv('api/.env')
-
-# Access the Gemini API key
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-
-genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemini-pro')
+from api.database import engine
+from api.models.user import User
 
 app = FastAPI()
 
 
 @app.get("/api/python")
-def hello_world():
-    return {"message": [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]}
-
-@app.get("/api/test")
-def test():
-    response = model.generate_content("What is FastAPI?")
-    return {"Gemini API test response": response.text}
+async def hello_world():
+    await engine.save(User(name="test1", email="test@gmail.com"))
+    return {"Hello": "World"}

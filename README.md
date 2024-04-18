@@ -30,7 +30,14 @@ touch api/.env
 npm run fastapi-dev
 ```
 
-Edit the `.env` file and add your Google Gemini API key under the key value pair `GEMINI_API_KEY=<API KEY HERE>`. Get the Gemini API key [here](https://ai.google.dev)
+Edit the `.env` file and add the following key value pairs:
+```
+GEMINI_API_KEY=<Gemini API Key>
+DB_USER=<MongoDB user name>
+DB_PASSWORD=<MongoDB user password>
+DB_NAME=<MongoDB Database name>
+DB_URI=<MongoDB URI to connect that uses the DB_USER, DB_PASSWORD, and DB_NAME variables>
+```
 
 It will install all of the required python packages and start the FastAPI dev server with hot reload
 
