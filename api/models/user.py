@@ -1,24 +1,9 @@
-from odmantic import Model, Field, EmbeddedModel
+from odmantic import Model, Field
 from typing import List, Optional
 from datetime import datetime
-
-
-class UploadedDocument(EmbeddedModel):
-    filename: str
-    file_type: str
-    file_data: bytes
-    uploaded_at: datetime = Field(default_factory=datetime.utcnow)
-
-
-class ChatMessage(EmbeddedModel):
-    message: str
-    sender: str
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
-
-
-class ChecklistItem(EmbeddedModel):
-    name: str
-    completed: bool = False
+from .uploaded_document import UploadedDocument
+from .chat_message import ChatMessage
+from .checklist_item import ChecklistItem
 
 
 class User(Model):
