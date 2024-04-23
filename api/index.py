@@ -1,14 +1,14 @@
 from fastapi import FastAPI
 from api.database import engine
 from api.models.user import User
-from api.routers import gemini
+from api.routers import gemini_routes, user_routes
 
 app = FastAPI()
 
-app.include_router(gemini.router, prefix="/gemini")
+app.include_router(gemini_routes.router, prefix="/api/gemini")
+app.include_router(user_routes.router, prefix="/api/user")
 
 
-@app.get("/api/python")
+@app.get("/api/hello-world")
 async def hello_world():
-    await engine.save(User(name="test1", email="test@gmail.com"))
     return {"Hello": "World"}
