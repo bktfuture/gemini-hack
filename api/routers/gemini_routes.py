@@ -23,7 +23,7 @@ async def send_message(message, email):
     # initialize a new chat if the user is new
     chat[email] = chat.get(email, text_model.start_chat(history=[]))
     response = chat[email].send_message(message)
-    user.chat_history.append(ChatMessage(message=message, sender='user'))
+    user.chat_history.append(ChatMessage(message=message, sender=str(user.id)))
     user.chat_history.append(ChatMessage(message=response.text, sender='gemini'))
     await engine.save(user)
     return {
