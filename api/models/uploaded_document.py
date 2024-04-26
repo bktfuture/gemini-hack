@@ -1,9 +1,10 @@
-from odmantic import EmbeddedModel, Field
+from odmantic import EmbeddedModel, Field, ObjectId
 from datetime import datetime
 
 
 class UploadedDocument(EmbeddedModel):
-    filename: str
+    file_id: ObjectId
+    file_name: str
     file_type: str
-    file_data: bytes
+    file_size: int
     uploaded_at: datetime = Field(default_factory=datetime.utcnow)
