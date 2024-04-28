@@ -1,6 +1,4 @@
 from fastapi import FastAPI
-from api.database import engine
-from api.models.user import User
 from api.routers import gemini_routes, user_routes
 
 app = FastAPI()
