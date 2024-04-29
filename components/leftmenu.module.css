@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+.container {
+	width: 21.875rem;
+	height: 100vh;
+	background-color: #fbfbfb;
+	display: flex;
+	flex-direction: column;
+}
+.logoText {
+	background: linear-gradient(
+		90deg,
+		rgba(20, 89, 203, 1) 0%,
+		rgba(54, 103, 207, 1) 20%,
+		rgba(87, 116, 221, 1) 39%,
+		rgba(128, 124, 208, 1) 56%,
+		rgba(157, 123, 208, 1) 69%,
+		rgba(206, 119, 183, 1) 82%,
+		rgba(232, 110, 148, 1) 93%
+	);
+	font-family: 'Jost', sans-serif;
+	font-weight: 600;
+	font-size: 2rem;
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+}
+
+.boxRow {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	justify-content: center;
+	flex-direction: row;
+}
+
+.boxCol {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.ul {
+	list-style-type: none;
+	height: 17.4rem;
+	width: 17.125rem;
+}
+
+.li {
+	text-decoration: none;
+	color: #262626;
+	/* font-family: 'SF Pro'; */
+	font-size: 0.875rem;
+}
+
+.liBox {
+	display: flex;
+	flex-direction: row;
+	gap: 0.5rem;
+	align-items: center;
+	margin-bottom: 0.5rem;
+	height: 3.5rem;
+}
+
+.btn {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 0.5rem;
+	width: 17.125rem;
+}
+
+.activeBtn {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 0.5rem;
+	background-color: #ebecec;
+	border-radius: 16rem;
+	width: 17.125rem;
+}
