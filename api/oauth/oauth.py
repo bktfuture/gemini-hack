@@ -8,12 +8,13 @@ from starlette.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import Flow
 from googleapiclient.discovery import build
+import oauth
 
 #from api.models.user import User
 
 router = APIRouter()
 
-CLIENT_SECRETS_FILE = 'client_secret.json'
+CLIENT_SECRETS_FILE = './api/oauth/client_secret.json'
 SCOPES = ['https://www.googleapis.com/auth/userinfo.email',
           'https://www.googleapis.com/auth/userinfo.profile',
           'openid',
@@ -143,3 +144,25 @@ def get_session_creds(request: Request):
         client_secret=temp['client_secret'],
         scopes=temp['scopes'])
     return creds
+
+ 
+# Page after Google OAuth Callback complete
+@router.get('/success')
+async def success(request: Request):
+
+    # Get and store user info
+    creds = oauth.get_session_creds(request)
+
+    # Use OAuth2 service to get user email
+    userinfo_request = oauth.build('oauth2', 'v2', credentials=creds)
+    temp_user = userinfo_request.userinfo().get().execute()
+
+    userinfo = {
+        'first_name': temp_user['given_name'],
+        'last_name': temp_user['family_name'],
+        'email': temp_user['email'],
+        'google_oauth_id': temp_user['id'],
+    }
+    oauth.create_event(request, userinfo)
+
+    return {'message': 'Authorize Success!'}
