@@ -41,3 +41,4 @@ __pycache__/
 .idea*
 /venv*
 .venv
+client_secret.json
