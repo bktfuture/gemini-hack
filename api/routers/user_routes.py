@@ -2,6 +2,7 @@ from api.database import engine
 from api.models.user import User
 from fastapi import HTTPException
 from . import router
+from bcrypt import hashpw, gensalt, checkpw
 
 @router.post("/temp-create-user")
 async def init_user(username, first_name, last_name, email):
@@ -10,3 +11,22 @@ async def init_user(username, first_name, last_name, email):
         raise HTTPException(status_code=400, detail='user already created')
     await engine.save(User(username=username, first_name=first_name, last_name=last_name, email=email))
     return { "response": "user successfully created" }
+
+
+@router.post("/register-with-password")
+async def init_user(username, first_name, last_name, email, password):
+    user = await engine.find_one(User, User.email == email)
+    if user:
+        raise HTTPException(status_code=400, detail='user already created')
+    hashed_pass = hashpw(password.encode('utf-8'), gensalt())
+    await engine.save(User(username=username, first_name=first_name, last_name=last_name, email=email, password=hashed_pass.decode('utf-8')))
+    return { "response": "user successfully created" }
+
+
+@router.get("/auth-user")
+async def init_user(email, password):
+    user = await engine.find_one(User, User.email == email)
+    if user and checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+        return { "response": "password correct" }
+    else:
+        raise HTTPException(status_code=400, detail='password wrong')
