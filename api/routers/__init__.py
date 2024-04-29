@@ -1,1 +1,3 @@
-from api.routers import gemini
+from fastapi import APIRouter
+
+router = APIRouter()
