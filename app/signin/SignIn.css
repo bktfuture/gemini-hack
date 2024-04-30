@@ -14,12 +14,21 @@ body {
     src: url('../../public/fonts/SF-Pro-Text-Bold.otf') format('opentype');
 }
 
+.center-sign-in-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .sign-in-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    /*
     width: 300px;
     margin-left: 40%;
+    */
     margin-top: 80px;
     padding-left: 30px;
     padding-right: 30px;
