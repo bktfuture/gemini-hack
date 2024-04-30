@@ -1,0 +1,80 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+@font-face {
+    font-family: 'SFProTextSemibold';
+    src: url('../../public/fonts/SF-Pro-Text-Semibold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SFProTextBold';
+    src: url('../../public/fonts/SF-Pro-Text-Bold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SFProTextRegular';
+    src: url('../../public/fonts/SF-Pro-Text-Regular.otf') format('opentype');
+}
+
+.container {
+    margin-left: 2%;
+}
+
+.applications-header {
+    font-family: 'SFProTextSemibold';
+    margin-bottom: 2%;
+    width: 241px;
+    height: 45px;
+    font-size: 40px;
+    line-height: 53px;
+}
+
+.applications-flexbox {
+    display: flex;
+    flex-direction: row;
+    gap: 3%;
+}
+
+.applications-card {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.image {
+    width: 308px;
+    height: 205px;
+    margin-bottom: 18px;
+}
+
+.card-bigger-text {
+    font-family: 'SFProTextBold';
+    font-size: 18px;
+}
+
+.card-smaller-text {
+    font-family: 'SFProTextRegular';
+    font-size: 14px;
+    color: #A3AED0;
+    margin-bottom: 8px;
+}
+
+.inner-button {
+    display: flex;
+    flex-direction: row;
+    padding-left: 12px;
+    align-items: center;
+    gap: 8px;
+}
+
+.start-button {
+    font-family: 'SFProTextSemibold';
+    background-color: #262626;
+    color: white;
+    width: 85px;
+    height: 34px;
+    border-radius: 1000px;
+}

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import ChatBot from "../components/ChatBot/ChatBotArea/ChatBotArea";
 
 export default function Home() {
   return (
