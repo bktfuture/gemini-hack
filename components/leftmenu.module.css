@@ -1,4 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+@font-face {
+	font-family: 'San Francisco';
+	font-weight: 400;
+	src: url('https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff');
+}
+@font-face {
+	font-family: 'San Francisco';
+	font-weight: 600;
+	src: url('https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-semibold-webfont.woff');
+}
+
+@font-face {
+	font-family: 'San Francisco';
+	font-weight: 500;
+	src: url('https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-medium-webfont.woff');
+}
+
 .container {
 	width: 21.875rem;
 	height: 100vh;
@@ -6,6 +23,7 @@
 	display: flex;
 	flex-direction: column;
 }
+
 .logoText {
 	background: linear-gradient(
 		90deg,
@@ -33,22 +51,26 @@
 }
 
 .boxCol {
+	letter-spacing: 0.01em;
+	font-family: 'San Francisco';
+	font-weight: 500;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: center;
 }
 
-.ul {
+/* .ul {
 	list-style-type: none;
 	height: 17.4rem;
 	width: 17.125rem;
-}
+} */
 
 .li {
 	text-decoration: none;
 	color: #262626;
 	/* font-family: 'SF Pro'; */
-	font-size: 0.875rem;
+	font-size: 0.9rem;
 }
 
 .liBox {
@@ -58,22 +80,74 @@
 	align-items: center;
 	margin-bottom: 0.5rem;
 	height: 3.5rem;
+	width: 13rem;
+	padding-left: 1rem;
 }
 
-.btn {
+.liBoxActive {
+	color: #ffffff;
+	display: flex;
+	flex-direction: row;
+	gap: 0.5rem;
+	align-items: center;
+	margin-bottom: 0.5rem;
+	height: 3.5rem;
+	width: 13rem;
+	padding-left: 1rem;
+	border: none;
+	border-radius: 15px;
+	background-image: linear-gradient(
+		90deg,
+		rgba(20, 89, 203, 1) 0%,
+		rgba(54, 103, 207, 1) 20%,
+		rgba(87, 116, 221, 1) 39%,
+		rgba(128, 124, 208, 1) 56%,
+		rgba(157, 123, 208, 1) 69%,
+		rgba(206, 119, 183, 1) 82%,
+		rgba(232, 110, 148, 1) 93%
+	);
+}
+
+.liActive {
+	color: #ffffff;
+	text-decoration: none;
+	font-size: 0.875rem;
+}
+
+.btnContactSupport {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	gap: 0.5rem;
-	width: 17.125rem;
-}
-
-.activeBtn {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 0.5rem;
+	width: 13rem;
 	background-color: #ebecec;
+	border: none;
+	border-radius: 15px;
+	height: 2.8rem;
+	padding-left: 1rem;
+	font-family: 'San Francisco';
+	font-weight: 500;
+}
+
+.btnLogOut {
+	font-family: 'San Francisco';
+	font-weight: 500;
+	display: flex;
+	padding-left: 1rem;
+	flex-direction: row;
+	align-items: center;
+	gap: 0.5rem;
+	width: 13rem;
+	border: none;
+	background-color: transparent;
 	border-radius: 16rem;
-	width: 17.125rem;
+	color: #cc5f5f;
+}
+
+.btnBox {
+	margin-top: 14rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }

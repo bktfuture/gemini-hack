@@ -3,10 +3,10 @@ import Link from 'next/link';
 
 const Dashboard = () => {
 	return (
-		<main className={styles.main}>
-			<h1 className={styles.text}>Hello</h1>
-
-		</main>
+		<div className={styles.main}>
+		
+			<h1>HELOOO</h1>
+		</div>
 	);
 };
 export default Dashboard;
