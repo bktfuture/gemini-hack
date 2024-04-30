@@ -1,16 +1,15 @@
 from datetime import datetime, date, time, timezone
 from icalendar import Event, Calendar, vCalAddress
-from fastapi import FastAPI, APIRouter
-from fastapi.responses import RedirectResponse
+from fastapi import FastAPI, APIRouter, Response
+from fastapi.responses import RedirectResponse, JSONResponse
 
 from starlette.requests import Request
 
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import Flow
 from googleapiclient.discovery import build
-import oauth
 
-#from api.models.user import User
+from api.models.user import User
 
 router = APIRouter()
 
@@ -21,6 +20,7 @@ SCOPES = ['https://www.googleapis.com/auth/userinfo.email',
           'https://www.googleapis.com/auth/calendar']
 
 
+# OAuth Login Stuff
 @router.get('/login')
 async def login(request: Request):
 
@@ -29,7 +29,7 @@ async def login(request: Request):
         CLIENT_SECRETS_FILE,
         scopes=SCOPES
     )
-    flow.redirect_uri = 'http://127.0.0.1:8000/oauth/callback'        # Page that Google should redirect to after signin
+    flow.redirect_uri = 'http://127.0.0.1:8000/api/v1/glogin/callback'        # Page that Google should redirect to after signin
 
     # Create Google authorization url to send user to
     authorization_url, state = flow.authorization_url(
@@ -51,7 +51,7 @@ async def callback(request: Request):
         scopes=SCOPES,
         state=state
     )
-    flow.redirect_uri = 'http://127.0.0.1:8000/oauth/callback'                # Page that Google should redirect to after signin
+    flow.redirect_uri = 'http://127.0.0.1:8000/api/v1/glogin/callback'                # Page that Google should redirect to after signin
     auth_response = 'https://redirectmeto.com/' + str(request.url)      # Workaround for localhost, regular request.url should work if it includes https
 
     # Trade authorized_response for access token
@@ -67,17 +67,70 @@ async def callback(request: Request):
         'client_secret': creds.client_secret,
         'scopes': creds.scopes
     }
-    return RedirectResponse('/success')
+    return RedirectResponse(request.url_for('success'))
 
 
-def create_event(request: Request, user: dict):
-    # Get Stored credentials from session, saved after OAuth flow
+# Page after Google OAuth Callback complete
+@router.get('/success')
+async def success(request: Request):
+
+    # Get and store user info
+    creds = get_session_creds(request)
+
+    # Use OAuth2 service to get user email
+    userinfo_request = build('oauth2', 'v2', credentials=creds)
+    temp_user = userinfo_request.userinfo().get().execute()
+
+    # userinfo = {
+    #     'first_name': temp_user['given_name'],
+    #     'last_name': temp_user['family_name'],
+    #     'email': temp_user['email'],
+    #     'google_oauth_id': temp_user['id'],
+    # }
+
+    userinfo = User(
+        first_name=temp_user['given_name'],
+        last_name=temp_user['family_name'],
+        email=temp_user['email'],
+        google_oauth_id=temp_user['id'],
+    )
+
+    request.session['userinfo'] = userinfo
+
+    create_event(request, userinfo)
+
+    return {'message': 'Authorize Success!'}
+
+
+@router.get('/userinfo_cookie/')
+async def create_userinfo_cookie(request: Request, response: Response):
+    userinfo = request.session['userinfo']
+    response.set_cookie(key='email_cookie', value=userinfo['email'], secure=True)
+
+    return {'message': 'Cookie saved'}  # Redirect back to old url?
+
+
+def get_session_creds(request: Request):
+    temp = request.session['creds']
+    creds = Credentials(
+        token=temp['token'],
+        refresh_token=temp['refresh_token'],
+        token_uri=temp['token_uri'],
+        client_id=temp['client_id'],
+        client_secret=temp['client_secret'],
+        scopes=temp['scopes'])
+    return creds
+
+
+# Event + Google Calendar Stuff
+def create_event(request: Request, user: User):
+    # Call when you are sending an event automatically to a user's Google Calendar
+    # Need to log in with Google
+
     creds = get_session_creds(request)
 
     # Use Calendar API to build and create event
     calendar = build('calendar', 'v3', credentials=creds)
-
-    # Test Event
     event = {
         'summary': 'Gemini Hackathon Due Date',
         'location': 'website',
@@ -93,20 +146,22 @@ def create_event(request: Request, user: dict):
         'reminders': {
             'useDefault': False,
             'overrides': [
-                {'method': 'email', 'minutes': 24 * 60},
-                {'method': 'popup', 'minutes': 10},
+                {'method': 'email', 'minutes': 24 * 60 * 7},    # Email user 1 week before Deadline
+                {'method': 'popup', 'minutes': 24 * 60},        # Popup 1 day before deadline
             ],
         },
     }
-
     event_list = [event, event]
 
     # Create Event in Calendar of user email
     event = calendar.events().insert(calendarId=user['email'], body=event).execute()
     print('Event created: %s' % (event.get('htmlLink')))
 
+def get_event_list():
+    # Get list of deadlines from tasks somehow?
+    pass
 
-def create_ics_file(event_list: list, user: dict):
+def create_ics_file(event_list: list, user: User):
     cal = Calendar()
 
     for event in event_list:
@@ -118,7 +173,7 @@ def create_ics_file(event_list: list, user: dict):
         file.write(cal.to_ical())
 
 
-def create_ics_event(event: dict, user: dict):
+def create_ics_event(event: dict, user: User):
 
     ics_event = Event()
     ics_event.add('summary', event['summary'])
@@ -133,36 +188,3 @@ def create_ics_event(event: dict, user: dict):
 
     return ics_event
 
-
-def get_session_creds(request: Request):
-    temp = request.session['creds']
-    creds = Credentials(
-        token=temp['token'],
-        refresh_token=temp['refresh_token'],
-        token_uri=temp['token_uri'],
-        client_id=temp['client_id'],
-        client_secret=temp['client_secret'],
-        scopes=temp['scopes'])
-    return creds
-
- 
-# Page after Google OAuth Callback complete
-@router.get('/success')
-async def success(request: Request):
-
-    # Get and store user info
-    creds = oauth.get_session_creds(request)
-
-    # Use OAuth2 service to get user email
-    userinfo_request = oauth.build('oauth2', 'v2', credentials=creds)
-    temp_user = userinfo_request.userinfo().get().execute()
-
-    userinfo = {
-        'first_name': temp_user['given_name'],
-        'last_name': temp_user['family_name'],
-        'email': temp_user['email'],
-        'google_oauth_id': temp_user['id'],
-    }
-    oauth.create_event(request, userinfo)
-
-    return {'message': 'Authorize Success!'}
