@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'SFProTextSemibold';
+    src: url('../../../public/fonts/SF-Pro-Text-Semibold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SFProTextBold';
+    src: url('../../../public/fonts/SF-Pro-Text-Bold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SFProTextRegular';
+    src: url('../../../public/fonts/SF-Pro-Text-Regular.otf') format('opentype');
+}
+
+.chat-container {
+    width: 401px;
+    height: 502px;
+    background: #FFFFFF;
+    border-radius: 20px;
+    box-shadow: 1px 1px 3px #A3AECF;
+    margin-top: 10px;
+}
+
+.top-of-chat {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    background: #FFFFFF;
+    padding-bottom: 10px;
+    padding: 10px;
+}
+
+.name-header {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+}
+
+.name {
+    font-family: 'SFProTextSemibold', Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #2B3674;
+}
+
+.below-top {
+    background: #FFFFFF;
+    height: 454px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.message-box {
+    width: 380px;
+    height: 380px;
+    overflow-y: auto;
+    padding-top: 10px;
+    padding: 10px;
+}
+
+.message {
+    margin-bottom: 5px;
+}
+
+.individual-message-content {
+    padding-left: 29px;
+}
+
+.multicolored-hello-message {
+    color: transparent; 
+    background-image: linear-gradient(to right,
+    #437AD5 0%,
+    #ED8BA9 60%); 
+    background-clip: text; 
+    -webkit-background-clip: text;
+    font-size: 14px;
+    font-family: 'SFProTextBold', Arial, Helvetica, sans-serif;
+    width: 150px;
+}
+
+.question {
+    font-family: 'SFProTextSemibold', Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #2A3571;
+}
+
+.input-or-upload-section {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 30px;
+    padding-right: 30px;
+    gap: 15px;
+}
+
+.prompt-gemini-box {
+    width: 312px;
+    height: 34px;
+    border-radius: 16px;
+    border: none;
+    background: #F2F3F4;
+    padding: 14px;
+    color: #A3AED0;
+    font-size: 14px;
+}
+
+.prompt-gemini-box::placeholder {
+    color: #A3AED0;
+    font-size: 14px;
+    font-family: 'SFProTextRegular';
+}
