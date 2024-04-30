@@ -81,19 +81,19 @@ async def success(request: Request):
     userinfo_request = build('oauth2', 'v2', credentials=creds)
     temp_user = userinfo_request.userinfo().get().execute()
 
-    # userinfo = {
-    #     'first_name': temp_user['given_name'],
-    #     'last_name': temp_user['family_name'],
-    #     'email': temp_user['email'],
-    #     'google_oauth_id': temp_user['id'],
-    # }
+    userinfo = {
+        'first_name': temp_user['given_name'],
+        'last_name': temp_user['family_name'],
+        'email': temp_user['email'],
+        'google_oauth_id': temp_user['id'],
+    }
 
-    userinfo = User(
-        first_name=temp_user['given_name'],
-        last_name=temp_user['family_name'],
-        email=temp_user['email'],
-        google_oauth_id=temp_user['id'],
-    )
+    # userinfo = User(
+    #     first_name=temp_user['given_name'],
+    #     last_name=temp_user['family_name'],
+    #     email=temp_user['email'],
+    #     google_oauth_id=temp_user['id'],
+    # )
 
     request.session['userinfo'] = userinfo
 
@@ -123,7 +123,7 @@ def get_session_creds(request: Request):
 
 
 # Event + Google Calendar Stuff
-def create_event(request: Request, user: User):
+def create_event(request: Request, user: dict):
     # Call when you are sending an event automatically to a user's Google Calendar
     # Need to log in with Google
 
@@ -161,7 +161,7 @@ def get_event_list():
     # Get list of deadlines from tasks somehow?
     pass
 
-def create_ics_file(event_list: list, user: User):
+def create_ics_file(event_list: list, user: dict):
     cal = Calendar()
 
     for event in event_list:
@@ -173,7 +173,7 @@ def create_ics_file(event_list: list, user: User):
         file.write(cal.to_ical())
 
 
-def create_ics_event(event: dict, user: User):
+def create_ics_event(event: dict, user: dict):
 
     ics_event = Event()
     ics_event.add('summary', event['summary'])
