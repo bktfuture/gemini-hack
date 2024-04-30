@@ -1,0 +1,96 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'JostSemiBold';
+    src: url('../../public/fonts/Jost-SemiBold.ttf') format('truetype');
+  }
+
+@font-face {
+    font-family: 'JostMedium';
+    src: url('../../public/fonts/Jost-Medium.ttf') format('truetype');
+  }
+
+@font-face {
+    font-family: 'SFProMedium';
+    src: url('../../public/fonts/SF-Pro-Text-Medium.otf') format('truetype');
+  }
+
+@font-face {
+    font-family: 'BarlowRegular';
+    src: url('../../public/fonts/Barlow-Regular.ttf') format('truetype');
+  }
+
+.separator {
+  margin-top: 100px;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.left-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-left: 30px;
+}
+
+.right-footer {
+  display:flex;
+  flex-direction: row;
+  justify-content:space-between;
+  align-items:center;
+  width: auto;
+  margin-right: 80px;
+  gap: 35px;
+}
+
+.footer-gemini-docs-logo {
+  width: 200px;
+  height: 40px;
+}
+
+.footer-about-text {
+  font-family: 'SFProMedium', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 150%;
+  color: #131314;
+}
+
+.footer-fafsa-text {
+  font-family: 'SFProMedium', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 150%;
+  color: #131314;
+}
+
+.footer-visa-text {
+  font-family: 'SFProMedium', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 150%;
+  color: #131314;
+}
+
+.footer-university-applications-text {
+  font-family: 'SFProMedium', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 150%;
+  color: #131314;
+}
+
+.footer-copyright {
+  font-size: 14px;
+  text-align: center;
+  color: #98989A;
+  font-family: 'BarlowRegular', Arial, Helvetica, sans-serif;
+  line-height: 150%;
+  margin-bottom: 20px;
+}
