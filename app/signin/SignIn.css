@@ -1,57 +1,60 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
+.outer-box {
+	width: 100%;
+}
 body {
-  background-image: url("../../public/icons/SignInAura.svg"); /* Replace with your image path */
-  background-size: cover; /* Ensures the image fills the viewport */
+	background-image: url('../../public/icons/SignInAura.svg'); /* Replace with your image path */
+	background-size: cover; /* Ensures the image fills the viewport */
 }
 
 @font-face {
-    font-family: 'SFProTextBold';
-    src: url('../../public/fonts/SF-Pro-Text-Bold.otf') format('opentype');
+	font-family: 'SFProTextBold';
+	src: url('../../public/fonts/SF-Pro-Text-Bold.otf') format('opentype');
 }
 
 .center-sign-in-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .sign-in-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /*
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	/*
     width: 300px;
     margin-left: 40%;
     */
-    margin-top: 80px;
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-radius: 40px;
-    background: #FFFFFF;
+	margin-top: 80px;
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-radius: 40px;
+	background: #ffffff;
 }
 
 .everything-above-button {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
 }
 
 .add-30-margin-bottom {
-    margin-bottom: 30px;
+	margin-bottom: 30px;
 }
 
 .everything-button-and-below {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 30px;
 }

@@ -16,7 +16,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 			</head>
 			<body className={styles.body}>
 				{pathname != '/' && pathname != '/signin' && <LeftMenu />}
-				<NavbarDs></NavbarDs>
+				{pathname != '/' && pathname != '/signin' && <NavbarDs></NavbarDs>}
+
 				{children}
 			</body>
 		</html>
