@@ -7,6 +7,7 @@ export default function Home() {
       <p>Hello, world, geminidocs here</p>
       <h2>
         <Link href="/dashboard">DASHBOARD</Link>
+        <Link href="/signin">Sign In</Link>
       </h2>
     </div>
   );
