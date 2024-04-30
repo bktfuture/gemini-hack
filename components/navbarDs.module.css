@@ -2,9 +2,34 @@
 	height: 6rem;
 	width: 100%;
 	display: flex;
+	justify-content: center;
+	align-content: flex-end;
+	flex-flow: column wrap;
 }
 
 .row {
 	display: flex;
 	flex-direction: row;
+	align-items: center;
+	gap: 0.7rem;
+	padding-right: 4rem;
+}
+
+.pfp {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 3rem;
+	height: 3rem;
+	background-image: linear-gradient(
+		90deg,
+		rgba(20, 89, 203, 1) 0%,
+		rgba(54, 103, 207, 1) 20%,
+		rgba(87, 116, 221, 1) 39%,
+		rgba(128, 124, 208, 1) 56%,
+		rgba(157, 123, 208, 1) 69%,
+		rgba(206, 119, 183, 1) 82%,
+		rgba(232, 110, 148, 1) 93%
+	);
+	border-radius: 50%;
 }
