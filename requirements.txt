@@ -10,3 +10,4 @@ python-multipart==0.0.9
 icalendar==5.0.12
 google-auth-oauthlib==1.2.0
 itsdangerous==2.2.0
+bcrypt==4.1.2

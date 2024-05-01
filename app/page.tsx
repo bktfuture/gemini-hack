@@ -3,11 +3,12 @@ import Link from 'next/link';
 
 export default function Home() {
 	return (
-		<main>
-			<h1>Hello, world, geminidocs here</h1>
+		<div>
+			<p>Hello, world, geminidocs here</p>
 			<h2>
 				<Link href="/dashboard">DASHBOARD</Link>
+				<Link href="/signin">Sign In</Link>
 			</h2>
-		</main>
+		</div>
 	);
 }

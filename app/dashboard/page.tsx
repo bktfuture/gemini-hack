@@ -1,12 +1,13 @@
-import styles from './dashboard.module.css';
-import Link from 'next/link';
+import BigBanner from "@/components/BigBanner/BigBanner";
+import ChatBot from "../../components/ChatBot/ChatBotArea/ChatBotArea";
+import styles from "./dashboard.module.css";
+import Link from "next/link";
 
 const Dashboard = () => {
-	return (
-		<main className={styles.main}>
-			<h1 className={styles.text}>Hello</h1>
-
-		</main>
-	);
+  return (
+    <div className={styles.main}>
+      <ChatBot />
+    </div>
+  );
 };
 export default Dashboard;
