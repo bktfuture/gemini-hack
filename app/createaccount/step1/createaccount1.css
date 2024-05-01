@@ -8,33 +8,33 @@
 	width: 100%;
 }
 body {
-	background-image: url('../../public/icons/SignInAura.svg'); /* Replace with your image path */
+	background-image: url('../../../public/icons/SignInAura.svg'); /* Replace with your image path */
 	background-size: cover; /* Ensures the image fills the viewport */
 }
 
 @font-face {
 	font-family: 'SFProTextBold';
-	src: url('../../public/fonts/SF-Pro-Text-Bold.otf') format('opentype');
+	src: url('../../../public/fonts/SF-Pro-Text-Bold.otf') format('opentype');
 }
 
 @font-face {
 	font-family: 'SFProTextRegular';
-	src: url('../../public/fonts/SF-Pro-Text-Regular.otf') format('opentype');
+	src: url('../../../public/fonts/SF-Pro-Text-Regular.otf') format('opentype');
 }
 
 @font-face {
 	font-family: 'SFProTextSemibold';
-	src: url('../../public/fonts/SF-Pro-Text-Semibold.otf') format('opentype');
+	src: url('../../../public/fonts/SF-Pro-Text-Semibold.otf') format('opentype');
 }
 
-.center-create-account-container {
+.center-create-account1-container {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
 
-.create-account-container {
+.create-account1-container {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -47,7 +47,7 @@ body {
 	background: #ffffff;
 }
 
-.create-account-text {
+.create-account1-text {
 	font-family: 'SFProTextBold', Arial, Helvetica, sans-serif;
 	font-size: 32px;
 	color: #2B3674;
@@ -85,7 +85,7 @@ body {
 	flex-direction: column;
 }
 
-.label {
+.create-account1-label {
 	font-family: 'SFProTextRegular', Arial, Helvetica, sans-serif;
 	font-size: 18px;
 	color: #2B3674;
@@ -94,7 +94,7 @@ body {
 	padding-left: 110px;
 }
 
-.custom-create-account-button {
+.create-account1-button {
 	width: 500px;
 	height: 50px;
 	border-radius: 43px;	

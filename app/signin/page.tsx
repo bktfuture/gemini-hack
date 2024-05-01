@@ -92,7 +92,7 @@ function SignIn() {
               <Image src={GoogleSignIn} alt="Continue with Google button" />
               <p className="dont-have-account-text">
                 Don't have an account yet?{" "}
-                <Link className="registration-link" href="/createaccount">
+                <Link className="registration-link" href="/createaccount/step1">
                   Register for free
                 </Link>
               </p>
