@@ -12,6 +12,7 @@ class User(Model):
     last_name: str
     email: str
     google_oauth_id: Optional[str] = None
+    password: Optional[str] = None
     uploaded_documents: List[UploadedDocument] = []
     chat_history: List[ChatMessage] = []
     checklist: List[ChecklistItem] = []
