@@ -1,44 +1,37 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 @font-face {
-    font-family: 'SFProTextSemibold';
-    src: url('../../public/fonts/SF-Pro-Text-Semibold.otf') format('opentype');
+	font-family: 'SFProTextSemibold';
+	src: url('../../public/fonts/SF-Pro-Text-Semibold.otf') format('opentype');
 }
 
 @font-face {
-    font-family: 'SFProTextRegular';
-    src: url('../../public/fonts/SF-Pro-Text-Regular.otf') format('opentype');
+	font-family: 'SFProTextRegular';
+	src: url('../../public/fonts/SF-Pro-Text-Regular.otf') format('opentype');
 }
 
 .container {
-    height: 250px;
-    width: 775px;
-    margin-left: 20px;
-    padding: 30px 225px 10px 40px;
-    border-radius: 30px;
-    background: linear-gradient(to right, 
-  #1459CB 0%,
-  #3667CF 20%,
-  #5774DD 39%,
-  #807CD0 56%,
-  #9D7BD0 69%,
-  #CE77B7 82%,
-  #E86E94 93%);
+	height: 250px;
+	width: 775px;
+	margin-left: 20px;
+	padding: 30px 225px 10px 40px;
+	border-radius: 30px;
+	background: linear-gradient(to right, #1459cb 0%, #3667cf 20%, #5774dd 39%, #807cd0 56%, #9d7bd0 69%, #ce77b7 82%, #e86e94 93%);
 }
 
 .upper-text {
-    font-family: 'SFProTextSemibold', Arial, Helvetica, sans-serif;
-    color: #FBFBFB;
-    font-size: 20px;
-    margin-bottom: 15px;
+	font-family: 'SFProTextSemibold', Arial, Helvetica, sans-serif;
+	color: #fbfbfb;
+	font-size: 20px;
+	margin-bottom: 15px;
 }
 
 .lower-text {
-    font-family: 'SFProTextSemibold', Arial, Helvetica, sans-serif;
-    font-size: 40px;
-    color: #FBFBFB;
+	font-family: 'SFProTextSemibold', Arial, Helvetica, sans-serif;
+	font-size: 40px;
+	color: #fbfbfb;
 }

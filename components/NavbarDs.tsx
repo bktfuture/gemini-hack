@@ -6,9 +6,9 @@ const NavbarDs = () => {
 	return (
 		<div className={styles.nav}>
 			<div className={styles.row}>
-				<IoNotificationsOutline />
+				<IoNotificationsOutline color="#A3AED0" fontSize="1.25rem" />
 				<div className={styles.pfp}>
-					<IoPersonOutline />
+					<IoPersonOutline color="white" fontSize="1.2rem" />
 				</div>
 			</div>
 		</div>
