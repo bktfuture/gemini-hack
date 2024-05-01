@@ -4,7 +4,7 @@ import LeftMenu from "@/components/LeftMenu";
 import { usePathname } from "next/navigation";
 import styles from "./globals.module.css";
 import NavbarDs from "@/components/NavbarDs";
-import ifNotLandingOrSignInPage from "../scripts/ifNotLandingOrSignInPage";
+import ifMenuNeeded from "../scripts/ifMenuNeeded";
 import { GlobalContextProvider } from "../context/globalContext";
 
 export default function RootLayout({
@@ -22,8 +22,8 @@ export default function RootLayout({
       </head>
       <body className={styles.body}>
         <GlobalContextProvider>
-          {ifNotLandingOrSignInPage(pathname) && <LeftMenu />}
-          {ifNotLandingOrSignInPage(pathname) && <NavbarDs></NavbarDs>}
+          {ifMenuNeeded(pathname) && <LeftMenu />}
+          {ifMenuNeeded(pathname) && <NavbarDs></NavbarDs>}
           {children}
         </GlobalContextProvider>
       </body>
