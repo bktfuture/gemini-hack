@@ -48,14 +48,11 @@
   height: 50px;
 }
 
-.navbar-about-button {
-    font-family: 'JostMedium', Arial, Helvetica, sans-serif;
-    background: #262626;
-    color: #FFFFFF;
-    width: 104px;
-    height: 55px;
-    border-radius: 16px;
-    font-size: 18px;
+.navbar-about-text {
+  font-family: 'SFProMedium', Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  line-height: 150%;
+  color: #131314;
 }
 
 .navbar-fafsa-text {
@@ -98,4 +95,21 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+}
+
+a:link { 
+	text-decoration: none; 
+} 
+
+a:visited { 
+text-decoration: none; 
+} 
+
+a:hover { 
+text-decoration: none; 
+} 
+
+a:active { 
+text-decoration: none; 
 }
