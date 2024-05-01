@@ -4,7 +4,6 @@ from api.oauth import oauth
 from starlette.middleware.sessions import SessionMiddleware
 from fastapi.middleware.cors import CORSMiddleware
 
-
 app = FastAPI()
 origins = [
     "http://localhost",
@@ -25,6 +24,7 @@ app.include_router(user_routes.router, prefix="/api/v1/user")
 app.include_router(oauth.router, prefix="/api/v1/glogin")
 
 app.add_middleware(SessionMiddleware, secret_key='<any string>')
+
 
 @app.get("/api/hello-world")
 async def hello_world():
