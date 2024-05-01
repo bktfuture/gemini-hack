@@ -55,6 +55,11 @@ body {
 	text-align: center;
 }
 
+.error-message {
+	color: red;
+	margin-left: 110px;
+}
+
 .everything-above-button {
 	display: flex;
 	flex-direction: column;
@@ -124,10 +129,30 @@ body {
 	font-family: 'SFProTextRegular', Arial, Helvetica, sans-serif;
 }
 
-.registration-link {
+.registration-link3 {
 	color: #4A90E7;
 	font-size: 14px;
 	font-family: 'SFProTextSemibold', Arial, Helvetica, sans-serif;
+	margin-left: 5px;
+}
+
+.all-checkbox-content {
+	margin-bottom: 25px;
+}
+
+.checkbox-content {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding-left: 110px;
+	padding-bottom: 10px;
+	gap: 5px;
+}
+
+.agreement-text {
+	font-family: 'SFProTextRegular', Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #2B3674;
 }
 
 a:link { 

@@ -124,10 +124,11 @@ body {
 	font-family: 'SFProTextRegular', Arial, Helvetica, sans-serif;
 }
 
-.registration-link {
+.registration-link2 {
 	color: #4A90E7;
 	font-size: 14px;
 	font-family: 'SFProTextSemibold', Arial, Helvetica, sans-serif;
+	margin-left: 5px;
 }
 
 a:link { 

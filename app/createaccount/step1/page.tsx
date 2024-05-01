@@ -12,9 +12,7 @@ import { useState } from "react";
 
 function CreateAccount1() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const { username, setUsername } = useGlobalContext();
   const router = useRouter();
 
   function moveToStep2(e: React.FormEvent<HTMLFormElement>) {
@@ -57,7 +55,7 @@ function CreateAccount1() {
               <Image src={GoogleSignIn} alt="Continue with Google button" />
               <p className="dont-have-account-text">
                 Already have an account?
-                <Link className="registration-link" href="/signin">
+                <Link className="registration-link1" href="/signin">
                   Login
                 </Link>
               </p>
