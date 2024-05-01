@@ -6,6 +6,7 @@ import InnerChatBotSVG from "../../../public/icons/InnerChatBotIcon.svg";
 import ExpandChatSVG from "../../../public/icons/ExpandChat.svg";
 import CloseChatSVG from "../../../public/icons/CloseChat.svg";
 import UploadIconSVG from "../../../public/icons/UploadIcon.svg";
+import { useGlobalContext } from "../../../context/globalContext";
 
 interface MessageProps {
   image: string;
@@ -15,11 +16,12 @@ interface MessageProps {
 
 function ChatBot() {
   const [messages, setMessages] = React.useState<MessageProps[]>([]);
+  const { username } = useGlobalContext();
 
   const handleSendMessage = (message: string) => {
     setMessages((prevMessages) => [
       ...prevMessages,
-      { image: InnerChatBotSVG, username: "Kyle", question: message },
+      { image: InnerChatBotSVG, username: username, question: message },
     ]);
   };
 
@@ -38,7 +40,7 @@ function ChatBot() {
               <p className="name">Gemini AI</p>
             </div>
             <div className="individual-message-content">
-              <p className="multicolored-hello-message">Hello, Kyle</p>
+              <p className="multicolored-hello-message">Hello, {username}</p>
               <p className="question">
                 What documents can I help you with today?
               </p>

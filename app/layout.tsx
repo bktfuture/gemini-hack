@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import styles from "./globals.module.css";
 import NavbarDs from "@/components/NavbarDs";
 import ifNotLandingOrSignInPage from "../scripts/ifNotLandingOrSignInPage";
+import { GlobalContextProvider } from "../context/globalContext";
 
 export default function RootLayout({
   children,
@@ -20,10 +21,11 @@ export default function RootLayout({
         <link rel="icon" href="/geminiDocsLogo.png"></link>
       </head>
       <body className={styles.body}>
-        {ifNotLandingOrSignInPage(pathname) && <LeftMenu />}
-        {ifNotLandingOrSignInPage(pathname) && <NavbarDs></NavbarDs>}
-
-        {children}
+        <GlobalContextProvider>
+          {ifNotLandingOrSignInPage(pathname) && <LeftMenu />}
+          {ifNotLandingOrSignInPage(pathname) && <NavbarDs></NavbarDs>}
+          {children}
+        </GlobalContextProvider>
       </body>
     </html>
   );
