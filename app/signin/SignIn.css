@@ -17,6 +17,16 @@ body {
 	src: url('../../public/fonts/SF-Pro-Text-Bold.otf') format('opentype');
 }
 
+@font-face {
+	font-family: 'SFProTextRegular';
+	src: url('../../public/fonts/SF-Pro-Text-Regular.otf') format('opentype');
+}
+
+@font-face {
+	font-family: 'SFProTextSemibold';
+	src: url('../../public/fonts/SF-Pro-Text-Semibold.otf') format('opentype');
+}
+
 .center-sign-in-container {
 	display: flex;
 	flex-direction: column;
@@ -28,23 +38,69 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	/*
-    width: 300px;
-    margin-left: 40%;
-    */
 	margin-top: 80px;
-	padding-left: 30px;
-	padding-right: 30px;
+	padding-left: 50px;
+	padding-right: 50px;
 	padding-top: 20px;
-	padding-bottom: 20px;
+	padding-bottom: 50px;
 	border-radius: 40px;
 	background: #ffffff;
+}
+
+.sign-in-text {
+	font-family: 'SFProTextBold', Arial, Helvetica, sans-serif;
+	font-size: 32px;
+	color: #2B3674;
+	margin-top: 20px;
 }
 
 .everything-above-button {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
+}
+
+.input {
+	width: 500px;
+	height: 50px;	
+	border-radius: 10px;
+	background-color: #FFFFFF;
+	color: #BCBEC0;
+	border-color: #BCBEC0;
+	border-width: 1px;
+	font-size: 14px;
+	padding-left: 20px;
+}
+
+.input::placeholder {
+	font-family: 'SFProTextRegular', Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #BCBEC0;
+}
+
+.label {
+	font-family: 'SFProTextRegular', Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	color: #2B3674;
+	margin-bottom: 5px;
+}
+
+.forgot-password {
+	font-family: 'SFProTextRegular', Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #2B3674;
+}
+
+.custom-sign-in-button {
+	width: 500px;
+	height: 50px;
+	border-radius: 43px;	
+	background: linear-gradient(to right, 
+	#4A90E7 0%, #8779CC 44%, #CB6671 100%);
+	font-family: 'SFProTextBold', Arial, Helvetica, sans-serif;
+	font-size: 20px;
+	color: #FFFFFF;
+	border: none;
 }
 
 .add-30-margin-bottom {
@@ -57,4 +113,16 @@ body {
 	justify-content: center;
 	align-items: center;
 	gap: 30px;
+}
+
+.dont-have-account-text {
+	color: #000000;
+	font-size: 14px;
+	font-family: 'SFProTextRegular', Arial, Helvetica, sans-serif;
+}
+
+.registration-link {
+	color: #4A90E7;
+	font-size: 14px;
+	font-family: 'SFProTextSemibold', Arial, Helvetica, sans-serif;
 }

@@ -25,6 +25,10 @@ function ChatBot() {
     ]);
   };
 
+  function uploadImage() {
+    console.log("Image uploaded!");
+  }
+
   return (
     <div className="chat-container">
       <div className="top-of-chat">
@@ -62,7 +66,7 @@ function ChatBot() {
               }
             }}
           />
-          <Image src={UploadIconSVG} alt="Upload icon" />
+          <Image onClick={uploadImage} src={UploadIconSVG} alt="Upload icon" />
         </div>
       </div>
     </div>
