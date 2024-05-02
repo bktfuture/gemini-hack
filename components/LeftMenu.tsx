@@ -33,16 +33,16 @@ const LeftMenu = () => {
 						</Link>
 					</div>
 					<div className={styles.liBox}>
+						<BiDollar fontSize="1.2rem" />
+						<Link className={styles.li} href="/fafsa">
+							FASFA
+						</Link>
+					</div>
+					<div className={styles.liBox}>
 						<IoDocumentTextOutline fontSize="1.2rem" />
 
 						<Link className={styles.li} href="/visa">
 							VISA
-						</Link>
-					</div>
-					<div className={styles.liBox}>
-						<BiDollar fontSize="1.2rem" />
-						<Link className={styles.li} href="/fafsa">
-							FASFA
 						</Link>
 					</div>
 					<div className={styles.liBox}>

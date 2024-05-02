@@ -21,11 +21,12 @@
 
 .main {
 	width: 100%;
+	font-family: 'San Francisco';
 }
 .col {
 	display: flex;
 	flex-direction: column;
-	gap: 2rem;
+	gap: 1.5rem;
 }
 
 .gradientH1 {
@@ -48,7 +49,7 @@
 
 .banner {
 	background-image: linear-gradient(180deg, rgba(68, 123, 213, 1) 0%, rgba(237, 139, 169, 1) 93%);
-	width: 80%;
+	width: 85%;
 	height: 15rem;
 	border: none;
 	border-radius: 3rem;
@@ -57,17 +58,88 @@
 	color: #fbfbfb;
 	font-family: 'San Francisco';
 	font-weight: 600;
+	display: flex;
+	gap: 0.7rem;
+	flex-direction: column;
+}
+
+.bannerH {
+	font-size: 2.3rem;
+}
+.bannerP {
+	font-size: 1.3rem;
+}
+
+.h2 {
+	font-size: 2.3rem;
+}
+
+.p {
+	padding-top: 1rem;
+}
+
+.pbox {
+	border-left: thick solid #e1e1e1;
+	padding-left: 2rem;
+	color: #a3aed0;
+	font-weight: 400;
+}
+
+.pbox ul {
+	padding-left: 1rem;
+}
+.pbox p {
+	padding-bottom: 1rem;
+}
+
+/* BTN */
+
+.btn {
+	cursor: pointer;
+	align-self: center;
+	color: white;
+	font-size: 1.7rem;
+	font-weight: 700;
+	background-image: linear-gradient(
+		90deg,
+		rgba(20, 89, 203, 1) 0%,
+		rgba(54, 103, 207, 1) 20%,
+		rgba(87, 116, 221, 1) 39%,
+		rgba(128, 124, 208, 1) 56%,
+		rgba(157, 123, 208, 1) 69%,
+		rgba(206, 119, 183, 1) 82%,
+		rgba(232, 110, 148, 1) 93%
+	);
+	border: none;
+	border-radius: 2rem;
+	text-align: center;
+	padding: 1rem 2rem;
+	max-width: 50%;
+}
+/* asks CONTAINER FOR TAsks */
+.tasksP {
+	padding-left: 2rem;
+	padding-bottom: 2rem;
+	padding-top: 2rem;
+	border-radius: 2rem;
+	border: none;
+	background-color: #eaeaea;
+}
+
+.tip {
+	color: #a3aed0;
+	font-size: 1rem;
 }
 
 /* TASK */
 .containerTask {
 	width: 100%;
-	background-color: #f9fafb;
 }
 .task {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	padding-top: 10px;
 }
 
 .checkbox-and-task-text {
