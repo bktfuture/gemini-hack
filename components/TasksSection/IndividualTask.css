@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'SFProTextMedium';
+    src: url('../../public/fonts/SF-Pro-Text-Medium.otf') format('opentype');
+}
+
+.task {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.checkbox-and-task-text {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.task-text-blank-checkbox {
+    font-family: 'SFProTextMedium', Arial, Helvetica, sans-serif;
+    color: #A3AED0;
+    font-size: 16px;
+}
+
+.task-text-black-checkbox {
+    font-family: 'SFProTextMedium', Arial, Helvetica, sans-serif;
+    color: #2B3674;
+    font-size: 16px;
+}
+
+.checkbox {
+    /*padding: 5px;*/
+    border-radius: 50%;    
+}
+
+.drag-indicator-outer-div {
+    height: 37px;
+    width: 37px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

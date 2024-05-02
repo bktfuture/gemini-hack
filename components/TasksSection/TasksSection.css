@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'SFProTextBold';
+    src: url('../../public/fonts/SF-Pro-Text-Bold.otf') format('opentype');
+}
+
+.container {
+    width: 451px;
+    height: 330px;
+    border-radius: 20px;
+    background: #F9FAFB;
+    padding: 20px 20px 0px 20px;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.left-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-text {
+    font-size: 18px;
+    font-family: 'SFProTextBold', Arial, Helvetica, sans-serif;
+}
+
+.circle-for-checkbox {
+    background: #F0F0F0;
+    /*padding: 5px;*/
+    border-radius: 50%;
+}
