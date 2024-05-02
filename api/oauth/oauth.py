@@ -114,7 +114,7 @@ async def success(request: Request, response: Response):
 
     # Store userinfo into session + username into cookies
     request.session['userinfo'] = userinfo
-    create_userinfo_cookie(userinfo['email'], response)
+    create_userinfo_cookie(userinfo['first_name'], response)
 
     return {'message': 'Google login success', 'user': user}
 
