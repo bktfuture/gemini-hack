@@ -37,6 +37,9 @@ DB_USER=<MongoDB user name>
 DB_PASSWORD=<MongoDB user password>
 DB_NAME=<MongoDB Database name>
 DB_URI=<MongoDB URI to connect that uses the DB_USER, DB_PASSWORD, and DB_NAME variables>
+QDRANT_API_KEY=<API Key for Qdrant Vector DB>
+QDRANT_URI=<URI/URL to Qdrant Cloud instance>
+QDRANT_COLLECTION_NAME=<Collection name of your choice to store embeddings in>
 ```
 
 It will install all of the required python packages and start the FastAPI dev server with hot reload
