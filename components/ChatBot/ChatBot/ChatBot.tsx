@@ -154,6 +154,8 @@ function ChatBot() {
       </div>
       <hr className="separator" />
       <div className="below-top">
+
+        
         <div className="message-box">
           <div className="message">
             <div className="name-header">
@@ -173,7 +175,10 @@ function ChatBot() {
             <Message key={message.question} {...message} />
           ))}
         </div>
-        <div>
+
+
+
+        <div className="input-msg-box" >
           <form ref={form} onSubmit={submit}>
             <div className="show-image-or-loading">
               {imageUploadState === "loading" && <p>Loading...</p>}

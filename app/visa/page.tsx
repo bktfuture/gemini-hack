@@ -1,7 +1,9 @@
 import styles from './visa.module.css';
 import FasfaTasks from '../fafsa/FasfaTasks';
+import SampleApplication from '@/components/SampleApplication/SampleApplication';
 
 function Visa() {
+	const name = 'Visa Application';
 	return (
 		<div className={styles.main}>
 			<div className={styles.col}>
@@ -101,6 +103,7 @@ function Visa() {
 						Students should report to our institutions within 15 days of the start date on the I-20
 					</p>
 				</div>
+				<SampleApplication name={name}></SampleApplication>
 			</div>
 		</div>
 	);
