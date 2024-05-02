@@ -35,6 +35,11 @@ function SignIn() {
     setPassword("");
   }
 
+  function handleGoogleSignIn() {
+    router.push("http://127.0.0.1:8000/api/v1/glogin/login");
+    //router.push("/dashboard");
+  }
+
   return (
     <div className="outer-box">
       <Navbar />
@@ -89,7 +94,11 @@ function SignIn() {
                 Sign In
               </button>
               <p>or</p>
-              <Image src={GoogleSignIn} alt="Continue with Google button" />
+              <Image
+                onClick={handleGoogleSignIn}
+                src={GoogleSignIn}
+                alt="Continue with Google button"
+              />
               <p className="dont-have-account-text">
                 Don't have an account yet?{" "}
                 <Link className="registration-link" href="/createaccount/step1">
