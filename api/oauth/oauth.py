@@ -160,12 +160,10 @@ async def events_to_dashboard(request: Request):
     events = [college_event, fafsa, visa]
     return events
 
+
 # Event + Google Calendar Stuff
-@router.get('/create_event')
-async def create_event(request: Request):
-    frontend_event = {
-        'name': 'FAFSA Application',
-        'date': '2024-05-02',}
+@router.post('/create_event')
+async def create_event(request: Request, name: str, deadline: str):
 
     # Need to log in with Google
     try:
@@ -178,16 +176,16 @@ async def create_event(request: Request):
         # College App - colorId=1
         # FAFSA - colorId=2
         # VISA - colorId=4
-        if 'College' in frontend_event['name']:
+        if 'College' in name:
             color_id = '1'
-        elif 'FAFSA' in frontend_event['name']:
+        elif 'FAFSA' in name:
             color_id = '2'
-        elif 'VISA' in frontend_event['name']:
+        elif 'VISA' in name:
             color_id = '4'
         else:
-            return {'message': f'ERROR in event Name - {frontend_event["name"]}'}
+            return {'message': f'ERROR in event Name - {name}'}
 
-        event = make_google_event(frontend_event, color_id)
+        event = make_google_event(name, deadline, color_id)
 
         event = calendar.events().insert(calendarId=user['email'], body=event).execute()
         return {'event_link': event.get('htmlLink')}
@@ -197,15 +195,15 @@ async def create_event(request: Request):
         return RedirectResponse(request.url_for('login'))
 
 
-def make_google_event(my_event: dict, color_id: str):
+def make_google_event(name: str, deadline: str, color_id: str):
     event = {
         'colorId': color_id,
-        'summary': my_event['name'],
+        'summary': name,
         'start': {
-            'date': my_event['date'],
+            'date': deadline,
         },
         'end': {
-            'date': my_event['date'],
+            'date': deadline,
         },
         'reminders': {
             'useDefault': False,
