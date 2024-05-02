@@ -17,7 +17,7 @@ interface MessageProps {
 
 function ChatBot() {
   const [messages, setMessages] = React.useState<MessageProps[]>([]);
-  const { username } = useGlobalContext();
+  const { userInfo } = useGlobalContext();
   const [imageUploadState, setImageUploadState] = useState(""); //Can be empty string, loading, or uploaded.
   const [imageToUpload, setImageToUpload] = useState<File>();
 
@@ -50,7 +50,7 @@ function ChatBot() {
       {
         profileImage: InnerChatBotSVG,
         uploadedImage: imageToUpload,
-        username: username,
+        username: userInfo.firstName,
         question: message,
       },
       //Fill in Gemini Info here.
@@ -84,7 +84,9 @@ function ChatBot() {
               <p className="name">Gemini AI</p>
             </div>
             <div className="individual-message-content">
-              <p className="multicolored-hello-message">Hello, {username}</p>
+              <p className="multicolored-hello-message">
+                Hello, {userInfo.firstName}
+              </p>
               <p className="question">
                 What documents can I help you with today?
               </p>
