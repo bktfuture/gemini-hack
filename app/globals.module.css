@@ -7,10 +7,21 @@
 	height: 100%;
 	width: 100%;
 	position: relative;
+	padding-right: 10px;
 }
 
 .chatbot {
 	position: absolute;
 	right: 5rem;
 	bottom: 5rem;
+}
+
+.calendCol {
+	display: flex;
+	flex-direction: column;
+}
+.calendRow {
+	display: flex;
+	flex-direction: row;
+	gap: 2.5rem;
 }

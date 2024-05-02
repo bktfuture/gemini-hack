@@ -16,8 +16,7 @@
 
 .container {
 	height: 250px;
-	width: 775px;
-	margin-left: 20px;
+	width: 750px;
 	padding: 30px 225px 10px 40px;
 	border-radius: 30px;
 	background: linear-gradient(to right, #1459cb 0%, #3667cf 20%, #5774dd 39%, #807cd0 56%, #9d7bd0 69%, #ce77b7 82%, #e86e94 93%);

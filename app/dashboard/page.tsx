@@ -1,22 +1,17 @@
-
 import BigBanner from '@/components/BigBanner/BigBanner';
 import './Dashboard.css';
 import Link from 'next/link';
 import Applications from '@/components/Applications/Applications';
 import Calendar from 'react-calendar';
+import Tasks from '@/components/TasksSection/TasksSection';
 
 const Dashboard = () => {
 	return (
 		<div className="main">
-			<div className="row">
+			<div className="col">
 				<BigBanner></BigBanner>
-				<Calendar></Calendar>
-			</div>
-			<div className="row-2">
 				<Applications></Applications>
 			</div>
-
-		
 		</div>
 	);
 };
