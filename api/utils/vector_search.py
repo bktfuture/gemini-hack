@@ -1,5 +1,7 @@
 import tempfile
+from typing import List
 
+from langchain_core.documents import Document
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
@@ -36,8 +38,7 @@ async def load_pdf_from_gridfs(file_id):
     return docs
 
 
-async def embed_document(doc_id: str):
-    docs = await load_pdf_from_gridfs(ObjectId(doc_id))
+def embed_document(docs: List[Document]):
     qdrant = Qdrant.from_documents(
         docs,
         GoogleGenerativeAIEmbeddings(model="models/text-embedding-004", google_api_key=GEMINI_API_KEY),
@@ -52,7 +53,8 @@ async def embed_document(doc_id: str):
 
 def create_filtered_retriever(qdrant: VST, user_id: str):
     retriever = qdrant.as_retriever(
-        search_kwargs={'filter': {'userId': user_id}}
+        search_type="similarity_score_threshold",
+        search_kwargs={'score_threshold': 0.8, 'filter': {'userId': user_id}}
     )
     return retriever
 
@@ -68,7 +70,8 @@ def run_rag_chain(question: str, qdrant: VST, user_id: str):
     and simple manner.
     
     Use the following context to supplement your own knowledge base information of the above topics when answering the given question.
-    If there is no context, think rationally from your own knowledge base to answer the given question.
+    If there is no context or the context isn't relevant to the actual question (which can happen),
+    then think rationally from your own knowledge base to answer the given question.
     
     Context: {context}
     

@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from api.routers import gemini_routes, user_routes, files
+from api.routers import gemini_routes, user_routes, files_routes
 from api.oauth import oauth
 from starlette.middleware.sessions import SessionMiddleware
 from fastapi.middleware.cors import CORSMiddleware
@@ -19,7 +19,7 @@ app.add_middleware(
 )
 
 app.include_router(gemini_routes.router, prefix="/api/v1/gemini")
-app.include_router(files.router, prefix="/api/v1/files")
+app.include_router(files_routes.router, prefix="/api/v1/files")
 app.include_router(user_routes.router, prefix="/api/v1/user")
 app.include_router(oauth.router, prefix="/api/v1/glogin")
 
