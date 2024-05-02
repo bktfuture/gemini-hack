@@ -11,14 +11,26 @@ from googleapiclient.discovery import build
 
 from api.models.user import User
 from api.database import engine
-
+from api.config import CLIENT_ID, PROJECT_ID, AUTH_URI, TOKEN_URI, AUTH_PROVIDER, CLIENT_SECRET, REDIRECT_URI, BASE_URL
 router = APIRouter()
 
-CLIENT_SECRETS_FILE = './api/oauth/client_secret.json'
+
 SCOPES = ['https://www.googleapis.com/auth/userinfo.email',
           'https://www.googleapis.com/auth/userinfo.profile',
           'openid',
           'https://www.googleapis.com/auth/calendar']
+
+oauth_config = {
+        'web': {
+            'client_id': CLIENT_ID,
+            'client_secret': CLIENT_SECRET,
+            'auth_uri': AUTH_URI,
+            'token_uri': TOKEN_URI,
+            'auth_provider': AUTH_PROVIDER,
+            'redirect_uris': REDIRECT_URI,
+            'project_id': PROJECT_ID
+        }
+}
 
 
 # OAuth Login Stuff
@@ -26,19 +38,15 @@ SCOPES = ['https://www.googleapis.com/auth/userinfo.email',
 async def login(request: Request):
 
     # Create OAuth Flow
-    flow = Flow.from_client_secrets_file(
-        CLIENT_SECRETS_FILE,
-        scopes=SCOPES
-    )
-
-    flow.redirect_uri = 'http://127.0.0.1:8000/api/v1/glogin/callback'        # Google redirects to after signin
+    flow = Flow.from_client_config(
+        client_config=oauth_config,
+        scopes=SCOPES)
+    flow.redirect_uri = BASE_URL + '/api/v1/glogin/callback'        # Google redirects to after signin
 
     # Create Google authorization url to send user to
     authorization_url, state = flow.authorization_url(
         access_type='offline',
-        include_granted_scopes='true'
-    )
-
+        include_granted_scopes='true')
     request.session['state'] = state
     return RedirectResponse(authorization_url)
 
@@ -49,14 +57,12 @@ async def callback(request: Request):
     state = request.session['state']
 
     # Recreate OAuth Flow w/ state
-    flow = Flow.from_client_secrets_file(
-        CLIENT_SECRETS_FILE,
+    flow = Flow.from_client_config(
+        client_config=oauth_config,
         scopes=SCOPES,
-        state=state
-    )
-
-    flow.redirect_uri = 'http://127.0.0.1:8000/api/v1/glogin/callback'                # Page that Google should redirect to after signin
-    auth_response = 'https://redirectmeto.com/' + str(request.url)      # Workaround for localhost, regular request.url should work if it includes https
+        state=state)
+    flow.redirect_uri = BASE_URL + '/api/v1/glogin/callback'    # Page that Google should redirect to after signin
+    auth_response = str(request.url)
 
     # Trade authorized_response for access token
     flow.fetch_token(authorization_response=auth_response)
@@ -100,14 +106,13 @@ async def success(request: Request, response: Response):
         email=temp_user['email'],
         google_oauth_id=temp_user['id'],
     )
-
     await engine.save(user)
 
     # Store userinfo into session + username into cookies
     request.session['userinfo'] = userinfo
     create_userinfo_cookie(userinfo['first_name'], response)
 
-    return RedirectResponse('http://localhost:3000/dashboard')
+    return RedirectResponse(BASE_URL + '/dashboard')
 
 
 def create_userinfo_cookie(username: str, response: Response):
@@ -156,8 +161,7 @@ async def events_to_dashboard(request: Request):
 async def create_event(request: Request):
     frontend_event = {
         'name': 'FAFSA',
-        'date': '2024-05-02',
-    }
+        'date': '2024-05-02',}
 
     # Need to log in with Google
     try:
@@ -182,9 +186,8 @@ async def create_event(request: Request):
         event = make_google_event(frontend_event, color_id)
 
         event = calendar.events().insert(calendarId=user['email'], body=event).execute()
-        print('Event created: %s' % (event.get('htmlLink')))
+        return {'event_link': event.get('htmlLink')}
 
-        return {'message': 'done'}
     except:
         print('ERROR - user not logged into Google')
         return RedirectResponse(request.url_for('login'))
