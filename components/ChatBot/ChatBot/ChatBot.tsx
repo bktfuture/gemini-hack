@@ -1,12 +1,14 @@
 import "./ChatBot.css";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Message from "./Message";
+import ChatBotSendMessage from "../../../public/icons/ChatBotSendMessage.svg";
 import InnerChatBotSVG from "../../../public/icons/InnerChatBotIcon.svg";
 import ExpandChatSVG from "../../../public/icons/ExpandChat.svg";
 import CloseChatSVG from "../../../public/icons/CloseChat.svg";
 import UploadIconSVG from "../../../public/icons/UploadIcon.svg";
 import { useGlobalContext } from "../../../context/globalContext";
+import axios from "axios";
 
 interface MessageProps {
   profileImage: string;
@@ -17,9 +19,67 @@ interface MessageProps {
 
 function ChatBot() {
   const [messages, setMessages] = React.useState<MessageProps[]>([]);
+  const [currMessage, setCurrMessage] = useState("");
+  const form = useRef(null);
   const { userInfo } = useGlobalContext();
   const [imageUploadState, setImageUploadState] = useState(""); //Can be empty string, loading, or uploaded.
   const [imageToUpload, setImageToUpload] = useState<File>();
+
+  const submit = async (e: any) => {
+    e.preventDefault();
+    /*
+    const formData = new FormData();
+    formData.append("message", currMessage);
+    if (imageToUpload) {
+      formData.append("file", imageToUpload);
+    }
+
+    try {
+      const response = await axios.post(
+        `http://127.0.0.1:8000/api/v1/gemini/message/58326792649238742`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("Response:", response.data);
+      setCurrMessage(""); // Clear message after successful send
+      setImageToUpload(undefined); // Clear file selection after successful send
+    } catch (error) {
+      console.error("Error sending message:", error);
+      // Handle errors appropriately, e.g., display error messages to user
+    }
+
+    if (form.current) {
+      const data = new FormData(form.current);
+
+      console.log(data);
+      //console.log("CURR MESSAGE: ", currMessage);
+      data.append("file", currMessage);
+      console.log(data);
+      console.log(data.get("currMessage"));
+
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      {
+        profileImage: InnerChatBotSVG,
+        uploadedImage: imageToUpload,
+        username: userInfo.firstName,
+        question: message,
+      },
+      //Fill in Gemini Info here.
+      {
+        profileImage: InnerChatBotSVG,
+        uploadedImage: undefined,
+        username: "Gemini AI",
+        question: "Sample Gemini response",
+      },
+    ]);
+  };
+    */
+  };
 
   const handleSendMessage = (message: string) => {
     /*
@@ -31,6 +91,23 @@ function ChatBot() {
       /* 
       Send message and file.
       */
+      axios
+        .post(
+          `http://127.0.0.1:8000/api/v1/gemini/message/${userInfo.user_id}`,
+          null,
+          {
+            params: {
+              file: imageToUpload,
+              message: message,
+            },
+          }
+        )
+        .then((response) => {
+          console.log("Response:", response.data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     } else if (message && !imageToUpload) {
       /*
       Send only message.
@@ -96,41 +173,53 @@ function ChatBot() {
             <Message key={message.question} {...message} />
           ))}
         </div>
-        <div className="input-or-upload-section">
-          <div className="show-image-or-loading">
-            {imageUploadState === "loading" && <p>Loading...</p>}
-            {imageUploadState === "uploaded" && imageToUpload && (
-              <Image
-                className="image-in-chat"
-                src={URL.createObjectURL(imageToUpload)}
-                /*src={imageToUpload}*/
-                alt="Uploaded Image"
-                width={300} // Replace with desired width
-                height={200} // Optional: Add height if needed
-              />
-            )}
+        <div>
+          <form ref={form} onSubmit={submit}>
+            <div className="show-image-or-loading">
+              {imageUploadState === "loading" && <p>Loading...</p>}
+              {imageUploadState === "uploaded" && imageToUpload && (
+                <Image
+                  className="image-in-chat"
+                  src={URL.createObjectURL(imageToUpload)}
+                  /*src={imageToUpload}*/
+                  alt="Uploaded Image"
+                  width={300} // Replace with desired width
+                  height={200} // Optional: Add height if needed
+                />
+              )}
+              <div className="input-or-upload-section">
+                <input
+                  className="prompt-gemini-box"
+                  placeholder="Enter your message here..."
+                  /*
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    const message = (event.target as HTMLInputElement).value;
+                    handleSendMessage(message);
+                    (event.target as HTMLInputElement).value = ""; // Clear input after sending
+                  }
+                }}
+                */
+                  value={currMessage}
+                  onChange={(e) => setCurrMessage(e.target.value)}
+                />
+                <label htmlFor="fileInput">
+                  {" "}
+                  <Image src={UploadIconSVG} alt="Upload icon" />
+                </label>
+              </div>
+              <button className="remove-button-styling" type="submit">
+                <Image src={ChatBotSendMessage} alt="send button" />
+              </button>
+            </div>
             <input
-              className="prompt-gemini-box"
-              placeholder="Enter your message here..."
-              onKeyDown={(event) => {
-                if (event.key === "Enter") {
-                  const message = (event.target as HTMLInputElement).value;
-                  handleSendMessage(message);
-                  (event.target as HTMLInputElement).value = ""; // Clear input after sending
-                }
-              }}
+              style={{ display: "none" }}
+              type="file"
+              id="fileInput"
+              name="file"
+              onChange={(e) => handleUploadImage(e)}
             />
-          </div>
-          <label htmlFor="fileInput">
-            {" "}
-            <Image src={UploadIconSVG} alt="Upload icon" />
-          </label>
-          <input
-            type="file"
-            id="fileInput"
-            name="file"
-            onChange={(e) => handleUploadImage(e)}
-          />
+          </form>
         </div>
       </div>
     </div>

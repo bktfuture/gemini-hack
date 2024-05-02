@@ -119,3 +119,10 @@
     font-size: 14px;
     font-family: 'SFProTextRegular';
 }
+
+.remove-button-styling {
+    all: unset;
+    position: relative;
+    left: 300px;
+    bottom: 25px;
+}
