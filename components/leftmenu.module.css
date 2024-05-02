@@ -22,6 +22,8 @@
 	background-color: #fbfbfb;
 	display: flex;
 	flex-direction: column;
+	padding-top: 1.4rem;
+	gap: 1.2rem;
 }
 
 .logoText {
@@ -47,7 +49,6 @@
 	align-items: center;
 	gap: 1rem;
 	justify-content: center;
-	flex-direction: row;
 }
 
 .boxCol {
@@ -145,9 +146,10 @@
 }
 
 .btnBox {
-	margin-top: 30vh;
+	padding-top: 75%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	gap: 1rem;
 }
