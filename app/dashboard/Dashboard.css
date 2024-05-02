@@ -6,6 +6,13 @@
 	gap: 2rem;
 }
 
+.row-2 {
+	display: flex;
+	flex: row;
+	gap: 2rem;
+	padding-top: 2rem;
+}
+
 .react-calendar {
 	height: 16rem;
 	width: 17rem;
@@ -15,11 +22,13 @@
 	border-radius: 2rem;
 	font-family: 'DM Sans', sans-serif;
 	line-height: 1.125em;
+	padding: 16px;
 }
 
 .react-calendar__navigation {
 	display: flex;
 	height: 1rem;
+
 	/* padding-top: 0.5rem;
 	padding-bottom: 0.05rem; */
 }
@@ -44,6 +53,7 @@
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
+	text-decoration: none;
 }
 
 .react-calendar button {
@@ -59,12 +69,12 @@
 
 .react-calendar__navigation {
 	display: flex;
-	height: 44px;
-	margin-bottom: 1em;
+	height: 30px;
+	margin-bottom: 0.03em;
 }
 
 .react-calendar__navigation button {
-	min-width: 44px;
+	min-width: 20px;
 	background: none;
 }
 
@@ -87,6 +97,7 @@
 
 .react-calendar__month-view__weekdays__weekday {
 	padding: 0.5em;
+	text-decoration: none;
 }
 
 .react-calendar__month-view__weekNumbers .react-calendar__tile {
@@ -111,15 +122,15 @@
 .react-calendar__year-view .react-calendar__tile,
 .react-calendar__decade-view .react-calendar__tile,
 .react-calendar__century-view .react-calendar__tile {
-	padding: 2em 0.5em;
+	padding: 1em 0.5em;
 }
 
 .react-calendar__tile {
 	max-width: 100%;
-	padding: 10px 6.6667px;
+	padding: 7px 6.6667px;
 	background: none;
 	text-align: center;
-	line-height: 16px;
+	line-height: 10px;
 	font: inherit;
 	font-size: 0.833em;
 }

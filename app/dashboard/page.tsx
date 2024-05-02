@@ -1,5 +1,4 @@
-
-import ChatBot from "../../components/ChatBot/ChatBotArea/ChatBotArea";
+import ChatBot from '../../components/ChatBot/ChatBotArea/ChatBotArea';
 import BigBanner from '@/components/BigBanner/BigBanner';
 import './Dashboard.css';
 import Link from 'next/link';
@@ -13,11 +12,12 @@ const Dashboard = () => {
 				<BigBanner></BigBanner>
 				<Calendar></Calendar>
 			</div>
+			<div className="row-2">
+				<Applications></Applications>
+			</div>
 
-			<Applications></Applications>
-			 <ChatBot />
+			<ChatBot />
 		</div>
 	);
-
 };
 export default Dashboard;
