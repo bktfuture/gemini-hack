@@ -41,13 +41,13 @@
 .applications-card {
 	display: flex;
 	flex-direction: column;
-	width: 220px;
+	width: 200px;
 	gap: 5px;
 }
 
 .image {
-	width: 220px;
-	height: 150px;
+	width: 200px;
+	height: 100px;
 	margin-bottom: 18px;
 }
 

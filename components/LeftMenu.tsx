@@ -28,26 +28,26 @@ const LeftMenu = () => {
 					<div className={styles.liBoxActive}>
 						<MdSpaceDashboard fontSize="1.2rem" />
 						{/* <RxDashboard fontSize="1.2rem" /> */}
-						<Link className={styles.liActive} href="">
+						<Link className={styles.liActive} href="/dashboard">
 							Dashboard
 						</Link>
 					</div>
 					<div className={styles.liBox}>
 						<IoDocumentTextOutline fontSize="1.2rem" />
 
-						<Link className={styles.li} href="">
+						<Link className={styles.li} href="/visa">
 							VISA
 						</Link>
 					</div>
 					<div className={styles.liBox}>
 						<BiDollar fontSize="1.2rem" />
-						<Link className={styles.li} href="">
+						<Link className={styles.li} href="/fafsa">
 							FASFA
 						</Link>
 					</div>
 					<div className={styles.liBox}>
 						<PiGraduationCap fontSize="1.2rem" />
-						<Link className={styles.li} href="">
+						<Link className={styles.li} href="/universityapplications">
 							College Applications
 						</Link>
 					</div>

@@ -1,0 +1,96 @@
+@font-face {
+	font-family: 'San Francisco';
+	font-weight: 400;
+	src: url('https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff');
+}
+@font-face {
+	font-family: 'SFProTextMedium';
+	src: url('../../public/fonts/SF-Pro-Text-Medium.otf') format('opentype');
+}
+@font-face {
+	font-family: 'San Francisco';
+	font-weight: 600;
+	src: url('https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-semibold-webfont.woff');
+}
+
+@font-face {
+	font-family: 'San Francisco';
+	font-weight: 500;
+	src: url('https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-medium-webfont.woff');
+}
+
+.main {
+	width: 100%;
+}
+.col {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+.gradientH1 {
+	background: linear-gradient(
+		90deg,
+		rgba(20, 89, 203, 1) 0%,
+		rgba(54, 103, 207, 1) 20%,
+		rgba(87, 116, 221, 1) 39%,
+		rgba(128, 124, 208, 1) 56%,
+		rgba(157, 123, 208, 1) 69%,
+		rgba(206, 119, 183, 1) 82%,
+		rgba(232, 110, 148, 1) 93%
+	);
+	font-family: 'San Francisco';
+	font-weight: 600;
+	font-size: 3rem;
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+}
+
+.banner {
+	background-image: linear-gradient(180deg, rgba(68, 123, 213, 1) 0%, rgba(237, 139, 169, 1) 93%);
+	width: 80%;
+	height: 15rem;
+	border: none;
+	border-radius: 3rem;
+	padding-top: 2rem;
+	padding-left: 2.4rem;
+	color: #fbfbfb;
+	font-family: 'San Francisco';
+	font-weight: 600;
+}
+
+/* TASK */
+.containerTask {
+	width: 100%;
+	background-color: #f9fafb;
+}
+.task {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.checkbox-and-task-text {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}
+
+.task-text-blank-checkbox {
+	font-family: 'SFProTextMedium', Arial, Helvetica, sans-serif;
+	color: #a3aed0;
+	font-size: 12.5px;
+}
+
+.task-text-black-checkbox {
+	font-family: 'SFProTextMedium', Arial, Helvetica, sans-serif;
+	color: #2b3674;
+	font-size: 12.5px;
+}
+
+.checkbox {
+	/*padding: 5px;*/
+	border-radius: 50%;
+}
