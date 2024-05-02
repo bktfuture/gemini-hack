@@ -1,6 +1,6 @@
 import "./ChatBot.css";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import Message from "./Message";
 import InnerChatBotSVG from "../../../public/icons/InnerChatBotIcon.svg";
 import ExpandChatSVG from "../../../public/icons/ExpandChat.svg";
@@ -9,7 +9,8 @@ import UploadIconSVG from "../../../public/icons/UploadIcon.svg";
 import { useGlobalContext } from "../../../context/globalContext";
 
 interface MessageProps {
-  image: string;
+  profileImage: string;
+  uploadedImage: File | undefined;
   username: string;
   question: string;
 }
@@ -17,17 +18,35 @@ interface MessageProps {
 function ChatBot() {
   const [messages, setMessages] = React.useState<MessageProps[]>([]);
   const { username } = useGlobalContext();
+  const [imageUploadState, setImageUploadState] = useState(""); //Can be empty string, loading, or uploaded.
+  const [imageToUpload, setImageToUpload] = useState<File>();
 
   const handleSendMessage = (message: string) => {
+    //Make API call here.
+
     setMessages((prevMessages) => [
       ...prevMessages,
-      { image: InnerChatBotSVG, username: username, question: message },
+      {
+        profileImage: InnerChatBotSVG,
+        uploadedImage: imageToUpload,
+        username: username,
+        question: message,
+      },
+      //Fill in Gemini Info here.
+      {
+        profileImage: InnerChatBotSVG,
+        uploadedImage: undefined,
+        username: "Gemini AI",
+        question: "Sample Gemini response",
+      },
     ]);
   };
 
-  function uploadImage() {
-    console.log("Image uploaded!");
-  }
+  const handleUploadImage = (e: any) => {
+    setImageUploadState("loading"); // Start loading animation immediately
+    setImageToUpload(e.target.files?.[0]);
+    setImageUploadState("uploaded");
+  };
 
   return (
     <div className="chat-container">
@@ -55,18 +74,40 @@ function ChatBot() {
           ))}
         </div>
         <div className="input-or-upload-section">
+          <div className="show-image-or-loading">
+            {imageUploadState === "loading" && <p>Loading...</p>}
+            {imageUploadState === "uploaded" && imageToUpload && (
+              <Image
+                className="image-in-chat"
+                src={URL.createObjectURL(imageToUpload)}
+                /*src={imageToUpload}*/
+                alt="Uploaded Image"
+                width={300} // Replace with desired width
+                height={200} // Optional: Add height if needed
+              />
+            )}
+            <input
+              className="prompt-gemini-box"
+              placeholder="Enter your message here..."
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  const message = (event.target as HTMLInputElement).value;
+                  handleSendMessage(message);
+                  (event.target as HTMLInputElement).value = ""; // Clear input after sending
+                }
+              }}
+            />
+          </div>
+          <label htmlFor="fileInput">
+            {" "}
+            <Image src={UploadIconSVG} alt="Upload icon" />
+          </label>
           <input
-            className="prompt-gemini-box"
-            placeholder="Enter your message here..."
-            onKeyDown={(event) => {
-              if (event.key === "Enter") {
-                const message = (event.target as HTMLInputElement).value;
-                handleSendMessage(message);
-                (event.target as HTMLInputElement).value = ""; // Clear input after sending
-              }
-            }}
+            type="file"
+            id="fileInput"
+            name="file"
+            onChange={(e) => handleUploadImage(e)}
           />
-          <Image onClick={uploadImage} src={UploadIconSVG} alt="Upload icon" />
         </div>
       </div>
     </div>
