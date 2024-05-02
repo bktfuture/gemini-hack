@@ -6,4 +6,11 @@
 	flex-direction: column;
 	height: 100%;
 	width: 100%;
+	position: relative;
+}
+
+.chatbot {
+	position: absolute;
+	right: 5rem;
+	bottom: 5rem;
 }

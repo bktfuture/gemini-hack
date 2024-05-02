@@ -1,4 +1,4 @@
-import ChatBot from '../../components/ChatBot/ChatBotArea/ChatBotArea';
+
 import BigBanner from '@/components/BigBanner/BigBanner';
 import './Dashboard.css';
 import Link from 'next/link';
@@ -16,7 +16,7 @@ const Dashboard = () => {
 				<Applications></Applications>
 			</div>
 
-			<ChatBot />
+		
 		</div>
 	);
 };

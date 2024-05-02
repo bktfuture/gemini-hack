@@ -1,18 +1,14 @@
+'use client';
+import ChatBot from '@/components/ChatBot/ChatBot/ChatBot';
+import { useRouter } from 'next/navigation';
+import LeftMenu from '@/components/LeftMenu';
+import { usePathname } from 'next/navigation';
+import styles from './globals.module.css';
+import NavbarDs from '@/components/NavbarDs';
+import ifMenuNeeded from '../scripts/ifMenuNeeded';
+import { GlobalContextProvider } from '../context/globalContext';
 
-"use client";
-import { useRouter } from "next/navigation";
-import LeftMenu from "@/components/LeftMenu";
-import { usePathname } from "next/navigation";
-import styles from "./globals.module.css";
-import NavbarDs from "@/components/NavbarDs";
-import ifMenuNeeded from "../scripts/ifMenuNeeded";
-import { GlobalContextProvider } from "../context/globalContext";
-
-export default function RootLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
 	const pathname = usePathname();
 	return (
 		<html lang="en">
@@ -27,10 +23,10 @@ export default function RootLayout({
 					<div className={styles.dashboardCol}>
 						{ifMenuNeeded(pathname) && <NavbarDs></NavbarDs>}
 						{children}
+						<div className={styles.chatbot}>{ifMenuNeeded(pathname) && <ChatBot />}</div>
 					</div>
-          
 				</GlobalContextProvider>
 			</body>
 		</html>
-	)
-};
+	);
+}
