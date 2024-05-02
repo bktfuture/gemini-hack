@@ -1,5 +1,6 @@
 .body {
 	display: flex;
+	position: relative;
 }
 .dashboardCol {
 	background-color: #ffffff;
@@ -7,15 +8,16 @@
 	flex-direction: column;
 	height: 100%;
 	width: 100%;
-	position: relative;
+
 	padding-right: 10px;
 	padding-left: 2rem;
 }
 
 .chatbot {
-	position: absolute;
+	position: fixed;
+	z-index: 999;
 	right: 5rem;
-	bottom: 5rem;
+	bottom: 2rem;
 }
 
 .calendCol {

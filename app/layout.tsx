@@ -38,10 +38,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 										text4="Good luck!"
 									></Tasks>
 								)}
+
+								<div className={styles.chatbot}>{ifMenuNeeded(pathname) && <ChatBotArea />}</div>
 							</div>
 						</div>
-
-						{/* <div className={styles.chatbot}>{ifMenuNeeded(pathname) && <ChatBotArea />}</div> */}
 					</div>
 				</GlobalContextProvider>
 			</body>

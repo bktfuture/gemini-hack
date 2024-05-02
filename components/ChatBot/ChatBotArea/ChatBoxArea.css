@@ -1,17 +1,17 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 .chatbot-area-container {
-    width: 547px;
-    height: 543px;
-    display: flex;
+	width: 547px;
+	height: 543px;
+	display: flex;
 }
 
 .chatbot-button {
-    flex: 0 0 auto;
-    margin-left: auto;
-    align-self: self-end;
+	flex: 0 0 auto;
+	margin-left: auto;
+	align-self: self-end;
 }
