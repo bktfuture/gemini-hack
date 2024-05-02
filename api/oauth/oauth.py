@@ -114,15 +114,13 @@ async def success(request: Request, response: Response):
 
     # Store userinfo into session + username into cookies
     request.session['userinfo'] = userinfo
-    create_userinfo_cookie(userinfo['first_name'], response)
+    create_userinfo_cookie(userinfo['email'], response)
 
-    # NOTE: For testing, use below line, for deployment use line 2
-    return RedirectResponse('http://localhost:3000/dashboard')
-    #return RedirectResponse(BASE_URL + '/dashboard')
+    return {'message': 'Google login success', 'user': user}
 
 
-def create_userinfo_cookie(username: str, response: Response):
-    response.set_cookie(key='username_cookie', value=username, secure=True)
+def create_userinfo_cookie(user: str, response: Response):
+    response.set_cookie(key='username_cookie', value=user, secure=True)
     # return {'message': 'Cookie saved'}
 
 
