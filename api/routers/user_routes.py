@@ -28,6 +28,7 @@ async def init_user(first_name, last_name, email, password):
 async def init_user(email, password):
     user = await engine.find_one(User, User.email == email)
     if user and checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
-        return { "response": "password correct" }
+        return { "response": "password correct",
+                "user_info": user }
     else:
         raise HTTPException(status_code=400, detail='password wrong')
