@@ -107,7 +107,6 @@ async def success(request: Request, response: Response):
     request.session['userinfo'] = userinfo
     create_userinfo_cookie(userinfo['first_name'], response)
 
-
     return RedirectResponse('http://localhost:3000/dashboard')
 
 
