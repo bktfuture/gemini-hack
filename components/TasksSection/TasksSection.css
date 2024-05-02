@@ -11,9 +11,9 @@
 
 .container-task {
 	width: 17rem;
-	height: 330px;
+	height: 270px;
 	border-radius: 20px;
-	background: #f9fafb;
+	background: white;
 	padding: 20px 20px 0px 20px;
 }
 

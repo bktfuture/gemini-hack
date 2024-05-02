@@ -2,12 +2,14 @@
 	display: flex;
 }
 .dashboardCol {
+	background-color: #ffffff;
 	display: flex;
 	flex-direction: column;
 	height: 100%;
 	width: 100%;
 	position: relative;
 	padding-right: 10px;
+	padding-left: 2rem;
 }
 
 .chatbot {
@@ -25,5 +27,5 @@
 .calendRow {
 	display: flex;
 	flex-direction: row;
-	gap: 2.5rem;
+	gap: 2rem;
 }
