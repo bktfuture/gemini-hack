@@ -1,7 +1,7 @@
-from datetime import datetime, date, time, timezone
+from datetime import datetime
 from icalendar import Event, Calendar, vCalAddress
-from fastapi import FastAPI, APIRouter, Response
-from fastapi.responses import RedirectResponse, JSONResponse
+from fastapi import APIRouter, Response
+from fastapi.responses import RedirectResponse
 
 from starlette.requests import Request
 
@@ -10,6 +10,7 @@ from google_auth_oauthlib.flow import Flow
 from googleapiclient.discovery import build
 
 from api.models.user import User
+from api.database import engine
 
 router = APIRouter()
 
@@ -29,7 +30,8 @@ async def login(request: Request):
         CLIENT_SECRETS_FILE,
         scopes=SCOPES
     )
-    flow.redirect_uri = 'http://127.0.0.1:8000/api/v1/glogin/callback'        # Page that Google should redirect to after signin
+
+    flow.redirect_uri = 'http://127.0.0.1:8000/api/v1/glogin/callback'        # Google redirects to after signin
 
     # Create Google authorization url to send user to
     authorization_url, state = flow.authorization_url(
@@ -41,6 +43,7 @@ async def login(request: Request):
     return RedirectResponse(authorization_url)
 
 
+# Page after Google OAuth Callback complete
 @router.get('/callback')
 async def callback(request: Request):
     state = request.session['state']
@@ -51,6 +54,7 @@ async def callback(request: Request):
         scopes=SCOPES,
         state=state
     )
+
     flow.redirect_uri = 'http://127.0.0.1:8000/api/v1/glogin/callback'                # Page that Google should redirect to after signin
     auth_response = 'https://redirectmeto.com/' + str(request.url)      # Workaround for localhost, regular request.url should work if it includes https
 
@@ -70,9 +74,9 @@ async def callback(request: Request):
     return RedirectResponse(request.url_for('success'))
 
 
-# Page after Google OAuth Callback complete
+# Store Userinfo
 @router.get('/success')
-async def success(request: Request):
+async def success(request: Request, response: Response):
 
     # Get and store user info
     creds = get_session_creds(request)
@@ -88,26 +92,33 @@ async def success(request: Request):
         'google_oauth_id': temp_user['id'],
     }
 
-    # userinfo = User(
-    #     first_name=temp_user['given_name'],
-    #     last_name=temp_user['family_name'],
-    #     email=temp_user['email'],
-    #     google_oauth_id=temp_user['id'],
-    # )
+    # Store user in database
+    user = User(
+        username=temp_user['email'],
+        first_name=temp_user['given_name'],
+        last_name=temp_user['family_name'],
+        email=temp_user['email'],
+        google_oauth_id=temp_user['id'],
+    )
 
+    await engine.save(user)
+
+    # Store userinfo into session + username into cookies
     request.session['userinfo'] = userinfo
+    create_userinfo_cookie(userinfo['first_name'], response)
 
-    create_event(request, userinfo)
-
-    return {'message': 'Authorize Success!'}
+    return RedirectResponse('http://localhost:3000/dashboard')
 
 
-@router.get('/userinfo_cookie/')
-async def create_userinfo_cookie(request: Request, response: Response):
-    userinfo = request.session['userinfo']
-    response.set_cookie(key='email_cookie', value=userinfo['email'], secure=True)
+def create_userinfo_cookie(username: str, response: Response):
+    response.set_cookie(key='username_cookie', value=username, secure=True)
+    # return {'message': 'Cookie saved'}
 
-    return {'message': 'Cookie saved'}  # Redirect back to old url?
+
+@router.get('/get_username_cookie')
+async def get_username_cookie(request: Request):
+    cookie = request.cookies.get('username_cookie')
+    return cookie
 
 
 def get_session_creds(request: Request):
@@ -123,68 +134,78 @@ def get_session_creds(request: Request):
 
 
 # Event + Google Calendar Stuff
-def create_event(request: Request, user: dict):
-    # Call when you are sending an event automatically to a user's Google Calendar
+@router.get('/create_event')
+async def create_event(request: Request):
+
     # Need to log in with Google
+    try:
+        user = request.session['userinfo']
+        creds = get_session_creds(request)
 
-    creds = get_session_creds(request)
+        # Use Calendar API to build and create event
+        calendar = build('calendar', 'v3', credentials=creds)
 
-    # Use Calendar API to build and create event
-    calendar = build('calendar', 'v3', credentials=creds)
+        # College App - colorId=1
+        # FAFSA - colorId=2
+        # VISA - colorId=4
+
+        name = 'Portland State University'
+        url = 'https://www.pdx.edu/'
+        event = make_google_event(
+            deadline='2024-05-02',
+            summary=f'{name} Application Deadline',
+            location=url,
+            colorId='1'
+        )
+        event = calendar.events().insert(calendarId=user['email'], body=event).execute()
+        print('Event created: %s' % (event.get('htmlLink')))
+
+        name = 'VISA'
+        url = 'https://travel.state.gov/content/travel/en/us-visas.html'
+        event = make_google_event(
+            deadline='2024-05-03',
+            summary=f'{name} Application Deadline',
+            location=url,
+            colorId='4'
+        )
+        event = calendar.events().insert(calendarId=user['email'], body=event).execute()
+        print('Event created: %s' % (event.get('htmlLink')))
+
+        name = 'FAFSA 2023-2024'
+        url = 'https://studentaid.gov/h/apply-for-aid/fafsa'
+        event = make_google_event(
+            deadline='2024-05-04',
+            summary=f'{name} Application Deadline',
+            location=url,
+            colorId='2'
+        )
+        event = calendar.events().insert(calendarId=user['email'], body=event).execute()
+        print('Event created: %s' % (event.get('htmlLink')))
+
+        return {'message': 'done'}
+    except:
+        print('ERROR - user not logged into Google')
+        return RedirectResponse(request.url_for('login'))
+
+
+def make_google_event(deadline: str, summary: str, location: str, colorId: str):
     event = {
-        'summary': 'Gemini Hackathon Due Date',
-        'location': 'website',
-        'description': 'hello world',
+        'colorId': colorId,
+        'summary': summary,
+        'location': location,
         'start': {
-            'dateTime': '2024-05-03T09:00:00-07:00',
-            'timeZone': 'America/Los_Angeles',
+            'date': deadline,
         },
         'end': {
-            'dateTime': '2024-05-03T17:00:00-07:00',
-            'timeZone': 'America/Los_Angeles',
+            'date': deadline,
         },
         'reminders': {
             'useDefault': False,
             'overrides': [
-                {'method': 'email', 'minutes': 24 * 60 * 7},    # Email user 1 week before Deadline
-                {'method': 'popup', 'minutes': 24 * 60},        # Popup 1 day before deadline
+                {'method': 'email', 'minutes': 24 * 60 * 7},  # Email user 1 week before Deadline
+                {'method': 'popup', 'minutes': 24 * 60},  # Popup 1 day before deadline
             ],
         },
     }
-    event_list = [event, event]
-
-    # Create Event in Calendar of user email
-    event = calendar.events().insert(calendarId=user['email'], body=event).execute()
-    print('Event created: %s' % (event.get('htmlLink')))
-
-def get_event_list():
-    # Get list of deadlines from tasks somehow?
-    pass
-
-def create_ics_file(event_list: list, user: dict):
-    cal = Calendar()
-
-    for event in event_list:
-        ics_event = create_ics_event(event=event, user=user)
-        cal.add_component(ics_event)
-
-    file_name = str(datetime.now()) + '.ics'
-    with open(file_name, 'wb') as file:
-        file.write(cal.to_ical())
-
-
-def create_ics_event(event: dict, user: dict):
-
-    ics_event = Event()
-    ics_event.add('summary', event['summary'])
-    ics_event.add('dtstart', event['start']['dateTime'])
-    ics_event.add('dtend', event['end']['dateTime'])
-
-    organizer = vCalAddress(user['email'])
-    organizer.params['name'] = f'{user["first_name"]} {user["last_name"]}'
-
-    ics_event['organizer'] = organizer
-    ics_event['location'] = 'www.website'
-
-    return ics_event
+    return event
 
