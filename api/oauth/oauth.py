@@ -41,7 +41,7 @@ async def login(request: Request):
     flow = Flow.from_client_config(
         client_config=oauth_config,
         scopes=SCOPES)
-    flow.redirect_uri = BASE_URL + '/api/v1/glogin/callback'        # Google redirects to after signin
+    flow.redirect_uri = BASE_URL + '/api/v1/glogin/callback'        # Google redirects to here after signin
 
     # Create Google authorization url to send user to
     authorization_url, state = flow.authorization_url(
@@ -61,8 +61,11 @@ async def callback(request: Request):
         client_config=oauth_config,
         scopes=SCOPES,
         state=state)
-    flow.redirect_uri = BASE_URL + '/api/v1/glogin/callback'    # Page that Google should redirect to after signin
-    auth_response = str(request.url)
+    flow.redirect_uri = BASE_URL + '/api/v1/glogin/callback'    # Google redirects to here after signin
+
+    # NOTE: For testing, use below line, for deployment use line 2
+    auth_response = 'https://redirectmeto.com/' + str(request.url)  # Workaround bc localhost doesn't have https, only http
+    #auth_response = str(request.url)
 
     # Trade authorized_response for access token
     flow.fetch_token(authorization_response=auth_response)
@@ -112,7 +115,9 @@ async def success(request: Request, response: Response):
     request.session['userinfo'] = userinfo
     create_userinfo_cookie(userinfo['first_name'], response)
 
-    return RedirectResponse(BASE_URL + '/dashboard')
+    # NOTE: For testing, use below line, for deployment use line 2
+    return RedirectResponse('http://localhost:3000/dashboard')
+    #return RedirectResponse(BASE_URL + '/dashboard')
 
 
 def create_userinfo_cookie(username: str, response: Response):
