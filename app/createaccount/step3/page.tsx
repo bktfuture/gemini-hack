@@ -12,6 +12,7 @@ import CreateAccountStepper3 from "../../../public/icons/CreateAccountStepper3.s
 import { useRouter } from "next/navigation";
 import { useGlobalContext } from "../../../context/globalContext";
 import { useState } from "react";
+import axios from 'axios'
 
 function CreateAccount3() {
   const [password, setPassword] = useState("");
@@ -20,6 +21,7 @@ function CreateAccount3() {
   const [purpleCheckBoxToggle, setPurpleCheckBoxToggle] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
+  const {userInfo, setUserInfo} = useGlobalContext();
 
   function moveToLoginScreen(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -30,7 +32,22 @@ function CreateAccount3() {
       setErrorMessage("Must agree to terms and conditions to sign up!");
       return;
     }
-    router.push("signin");
+    axios.post('http://127.0.0.1:8000/api/v1/user/register-with-password', null, {
+      params:{
+        email: userInfo.email,
+        password: password,
+        first_name: userInfo.firstName,
+        last_name: userInfo.lastName
+      }
+    })
+    .then(response => {
+      console.log('Response:', response.data);
+      setUserInfo('user_id', response.data.user_id)
+      router.push("dashboard");
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
   }
 
   function toggleBlueCheckBoxColor() {

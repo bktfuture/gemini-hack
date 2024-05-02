@@ -7,7 +7,6 @@ from .checklist_item import ChecklistItem
 
 
 class User(Model):
-    username: str
     first_name: str
     last_name: str
     email: str

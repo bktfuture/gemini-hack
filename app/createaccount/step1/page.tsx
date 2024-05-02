@@ -11,8 +11,9 @@ import { useGlobalContext } from "../../../context/globalContext";
 import { useState } from "react";
 
 function CreateAccount1() {
-  const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const {userInfo, setUserInfo} = useGlobalContext();
+
   const router = useRouter();
 
   function moveToStep2(e: React.FormEvent<HTMLFormElement>) {
@@ -41,8 +42,8 @@ function CreateAccount1() {
                   type="email"
                   id="email"
                   placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={userInfo.email}
+                  onChange={(e) => setUserInfo('email', e.target.value)}
                   required
                 />
               </div>
