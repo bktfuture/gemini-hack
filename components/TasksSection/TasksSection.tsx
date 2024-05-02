@@ -7,7 +7,7 @@ import DotDotDotButtonSVG from "../../public/icons/DotDotDotButton.svg";
 
 function Tasks(props: any) {
   return (
-    <div className="container">
+    <div className="container-task">
       <div className="header">
         <div className="left-header">
           <Image
