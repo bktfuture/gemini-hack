@@ -107,8 +107,8 @@ async def success(request: Request, response: Response):
     request.session['userinfo'] = userinfo
     create_userinfo_cookie(userinfo['first_name'], response)
 
-    return {'message': 'Test'}
-    #return RedirectResponse('http://localhost:3000/dashboard')
+
+    return RedirectResponse('http://localhost:3000/dashboard')
 
 
 def create_userinfo_cookie(username: str, response: Response):
@@ -135,22 +135,22 @@ def get_session_creds(request: Request):
 
 
 # Needed??
-# @router.get('/events_to_dashboard')
-# async def events_to_dashboard(request: Request):
-#     college_event = {
-#         'name': 'College Application Deadline',
-#         'deadline': '2024-05-03',
-#     }
-#     fafsa = {
-#         'name': 'FAFSA Application Deadline',
-#         'deadline': '2024-05-02',
-#     }
-#     visa = {
-#         'name': 'F1 VISA Application Deadline',
-#         'deadline': '2024-05-04',
-#     }
-#     events = [college_event, fafsa, visa]
-#     return events
+@router.get('/events_to_dashboard')
+async def events_to_dashboard(request: Request):
+    college_event = {
+        'name': 'College Application Deadline',
+        'deadline': '2024-05-03',
+    }
+    fafsa = {
+        'name': 'FAFSA Application Deadline',
+        'deadline': '2024-05-02',
+    }
+    visa = {
+        'name': 'F1 VISA Application Deadline',
+        'deadline': '2024-05-04',
+    }
+    events = [college_event, fafsa, visa]
+    return events
 
 # Event + Google Calendar Stuff
 @router.get('/create_event')
