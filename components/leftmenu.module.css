@@ -19,7 +19,7 @@
 .container {
 	width: 21.875rem;
 	height: 100vh;
-	background-color: #e9e9e9;
+	background-color: white;
 	display: flex;
 	flex-direction: column;
 	padding-top: 1.4rem;
