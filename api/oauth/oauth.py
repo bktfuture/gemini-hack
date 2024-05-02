@@ -1,6 +1,4 @@
-from datetime import datetime
-from icalendar import Event, Calendar, vCalAddress
-from fastapi import APIRouter, Response
+from fastapi import APIRouter, Response, HTTPException
 from fastapi.responses import RedirectResponse
 
 from starlette.requests import Request
@@ -12,8 +10,8 @@ from googleapiclient.discovery import build
 from api.models.user import User
 from api.database import engine
 from api.config import CLIENT_ID, PROJECT_ID, AUTH_URI, TOKEN_URI, AUTH_PROVIDER, CLIENT_SECRET, REDIRECT_URI, BASE_URL
-router = APIRouter()
 
+router = APIRouter()
 
 SCOPES = ['https://www.googleapis.com/auth/userinfo.email',
           'https://www.googleapis.com/auth/userinfo.profile',
@@ -109,7 +107,10 @@ async def success(request: Request, response: Response):
         email=temp_user['email'],
         google_oauth_id=temp_user['id'],
     )
-    await engine.save(user)
+
+    user_exists = await engine.find_one(User, User.email == temp_user['email'])
+    if not user_exists:
+        await engine.save(user)     # If user doesn't already exist, store in database
 
     # Store userinfo into session + username into cookies
     request.session['userinfo'] = userinfo
@@ -165,7 +166,7 @@ async def events_to_dashboard(request: Request):
 @router.get('/create_event')
 async def create_event(request: Request):
     frontend_event = {
-        'name': 'FAFSA',
+        'name': 'FAFSA Application',
         'date': '2024-05-02',}
 
     # Need to log in with Google
