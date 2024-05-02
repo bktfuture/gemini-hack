@@ -29,4 +29,3 @@ async def get_chat_history(user_id):
     if not user:
         raise HTTPException(status_code=400, detail='user not found')
     return { "response": user.chat_history }
-    

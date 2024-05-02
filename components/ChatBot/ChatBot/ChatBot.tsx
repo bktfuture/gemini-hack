@@ -22,8 +22,29 @@ function ChatBot() {
   const [imageToUpload, setImageToUpload] = useState<File>();
 
   const handleSendMessage = (message: string) => {
-    //Make API call here.
+    /*
+    Make API calls here, and change the second object below 
+    to the response because that's the Gemini AI prompt.
+    */
 
+    if (message && imageToUpload) {
+      /* 
+      Send message and file.
+      */
+    } else if (message && !imageToUpload) {
+      /*
+      Send only message.
+      */
+    } else if (imageToUpload && !message) {
+      /*
+      Send only file.
+      */
+    } else {
+      //They probably did something they weren't supposed to...
+      return;
+    }
+
+    //I think I can copy this code into the conditional statements above if needed.
     setMessages((prevMessages) => [
       ...prevMessages,
       {
