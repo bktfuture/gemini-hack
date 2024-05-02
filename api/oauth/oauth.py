@@ -107,7 +107,8 @@ async def success(request: Request, response: Response):
     request.session['userinfo'] = userinfo
     create_userinfo_cookie(userinfo['first_name'], response)
 
-    return RedirectResponse('http://localhost:3000/dashboard')
+    return {'message': 'Test'}
+    #return RedirectResponse('http://localhost:3000/dashboard')
 
 
 def create_userinfo_cookie(username: str, response: Response):
@@ -133,9 +134,31 @@ def get_session_creds(request: Request):
     return creds
 
 
+# Needed??
+# @router.get('/events_to_dashboard')
+# async def events_to_dashboard(request: Request):
+#     college_event = {
+#         'name': 'College Application Deadline',
+#         'deadline': '2024-05-03',
+#     }
+#     fafsa = {
+#         'name': 'FAFSA Application Deadline',
+#         'deadline': '2024-05-02',
+#     }
+#     visa = {
+#         'name': 'F1 VISA Application Deadline',
+#         'deadline': '2024-05-04',
+#     }
+#     events = [college_event, fafsa, visa]
+#     return events
+
 # Event + Google Calendar Stuff
 @router.get('/create_event')
 async def create_event(request: Request):
+    frontend_event = {
+        'name': 'FAFSA',
+        'date': '2024-05-02',
+    }
 
     # Need to log in with Google
     try:
@@ -148,37 +171,17 @@ async def create_event(request: Request):
         # College App - colorId=1
         # FAFSA - colorId=2
         # VISA - colorId=4
+        if 'College' in frontend_event['name']:
+            color_id = '1'
+        elif 'FAFSA' in frontend_event['name']:
+            color_id = '2'
+        elif 'VISA' in frontend_event['name']:
+            color_id = '4'
+        else:
+            return {'message': f'ERROR in event Name - {frontend_event["name"]}'}
 
-        name = 'Portland State University'
-        url = 'https://www.pdx.edu/'
-        event = make_google_event(
-            deadline='2024-05-02',
-            summary=f'{name} Application Deadline',
-            location=url,
-            colorId='1'
-        )
-        event = calendar.events().insert(calendarId=user['email'], body=event).execute()
-        print('Event created: %s' % (event.get('htmlLink')))
+        event = make_google_event(frontend_event, color_id)
 
-        name = 'VISA'
-        url = 'https://travel.state.gov/content/travel/en/us-visas.html'
-        event = make_google_event(
-            deadline='2024-05-03',
-            summary=f'{name} Application Deadline',
-            location=url,
-            colorId='4'
-        )
-        event = calendar.events().insert(calendarId=user['email'], body=event).execute()
-        print('Event created: %s' % (event.get('htmlLink')))
-
-        name = 'FAFSA 2023-2024'
-        url = 'https://studentaid.gov/h/apply-for-aid/fafsa'
-        event = make_google_event(
-            deadline='2024-05-04',
-            summary=f'{name} Application Deadline',
-            location=url,
-            colorId='2'
-        )
         event = calendar.events().insert(calendarId=user['email'], body=event).execute()
         print('Event created: %s' % (event.get('htmlLink')))
 
@@ -188,16 +191,15 @@ async def create_event(request: Request):
         return RedirectResponse(request.url_for('login'))
 
 
-def make_google_event(deadline: str, summary: str, location: str, colorId: str):
+def make_google_event(my_event: dict, color_id: str):
     event = {
-        'colorId': colorId,
-        'summary': summary,
-        'location': location,
+        'colorId': color_id,
+        'summary': my_event['name'],
         'start': {
-            'date': deadline,
+            'date': my_event['date'],
         },
         'end': {
-            'date': deadline,
+            'date': my_event['date'],
         },
         'reminders': {
             'useDefault': False,
