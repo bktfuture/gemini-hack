@@ -8,36 +8,38 @@ import GoogleSignIn from "../../public/icons/GoogleSignIn.svg";
 import { useRouter } from "next/navigation";
 import { useGlobalContext } from "../../context/globalContext";
 import { useState } from "react";
+import axios from "axios";
 
 function SignIn() {
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const { username, setUsername } = useGlobalContext();
   const router = useRouter();
+  const { userInfo, setUserInfo } = useGlobalContext();
 
   function handleSignIn(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setUsername(username);
-    //Do API call.
-    //If login details are NOT correct
-    if (!email || !password) {
-      setErrorMessage("Please enter your email and password");
-      setEmail("");
-      setPassword("");
-      return;
-    }
-    //If login details are correct redirect to dashboard page.
-    router.push("/dashboard");
-
-    //Resetting email/password details to null.
-    setEmail("");
-    setPassword("");
+    axios
+      .get("http://127.0.0.1:8000/api/v1/user/auth-user", {
+        params: {
+          email: userInfo.email,
+          password: password,
+        },
+      })
+      .then((response) => {
+        setUserInfo("firstName", response.data.user_info.first_name);
+        router.push("dashboard");
+      })
+      .catch((error) => {
+        setErrorMessage("Please enter your email and password");
+        setUserInfo("email", "");
+        setPassword("");
+        console.error("Error:", error);
+        return;
+      });
   }
 
   function handleGoogleSignIn() {
     router.push("http://127.0.0.1:8000/api/v1/glogin/login");
-    //router.push("/dashboard");
   }
 
   return (
@@ -52,15 +54,6 @@ function SignIn() {
               <label className="label" htmlFor="username">
                 Username
               </label>
-              <input
-                className="input add-30-margin-bottom"
-                type="text"
-                id="username"
-                placeholder="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
               <label className="label" htmlFor="email">
                 Email
               </label>
@@ -69,8 +62,8 @@ function SignIn() {
                 type="email"
                 id="email"
                 placeholder="username@gmail.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={userInfo.email}
+                onChange={(e) => setUserInfo("email", e.target.value)}
                 required
               />
               <label className="label" htmlFor="password">
