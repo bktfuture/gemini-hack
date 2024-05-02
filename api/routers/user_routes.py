@@ -4,6 +4,7 @@ from fastapi import HTTPException
 from . import router
 from bcrypt import hashpw, gensalt, checkpw
 
+
 @router.post("/temp-create-user")
 async def init_user(first_name, last_name, email):
     user = await engine.find_one(User, User.email == email)

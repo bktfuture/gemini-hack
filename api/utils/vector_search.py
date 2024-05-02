@@ -7,7 +7,6 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.vectorstores import VST
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from odmantic import ObjectId
 
 from api.database import fs
 from api.config import GEMINI_API_KEY, QDRANT_API_KEY, QDRANT_URI, QDRANT_COLLECTION_NAME
