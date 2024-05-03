@@ -1,6 +1,4 @@
-from datetime import datetime
-from icalendar import Event, Calendar, vCalAddress
-from fastapi import APIRouter, Response
+from fastapi import APIRouter, Response, HTTPException
 from fastapi.responses import RedirectResponse
 
 from starlette.requests import Request
@@ -11,14 +9,26 @@ from googleapiclient.discovery import build
 
 from api.models.user import User
 from api.database import engine
+from api.config import CLIENT_ID, PROJECT_ID, AUTH_URI, TOKEN_URI, AUTH_PROVIDER, CLIENT_SECRET, REDIRECT_URI, BASE_URL
 
 router = APIRouter()
 
-CLIENT_SECRETS_FILE = './api/oauth/client_secret.json'
 SCOPES = ['https://www.googleapis.com/auth/userinfo.email',
           'https://www.googleapis.com/auth/userinfo.profile',
           'openid',
           'https://www.googleapis.com/auth/calendar']
+
+oauth_config = {
+        'web': {
+            'client_id': CLIENT_ID,
+            'client_secret': CLIENT_SECRET,
+            'auth_uri': AUTH_URI,
+            'token_uri': TOKEN_URI,
+            'auth_provider': AUTH_PROVIDER,
+            'redirect_uris': REDIRECT_URI,
+            'project_id': PROJECT_ID
+        }
+}
 
 
 # OAuth Login Stuff
@@ -26,19 +36,15 @@ SCOPES = ['https://www.googleapis.com/auth/userinfo.email',
 async def login(request: Request):
 
     # Create OAuth Flow
-    flow = Flow.from_client_secrets_file(
-        CLIENT_SECRETS_FILE,
-        scopes=SCOPES
-    )
-
-    flow.redirect_uri = 'http://127.0.0.1:8000/api/v1/glogin/callback'        # Google redirects to after signin
+    flow = Flow.from_client_config(
+        client_config=oauth_config,
+        scopes=SCOPES)
+    flow.redirect_uri = BASE_URL + '/api/v1/glogin/callback'        # Google redirects to here after signin
 
     # Create Google authorization url to send user to
     authorization_url, state = flow.authorization_url(
         access_type='offline',
-        include_granted_scopes='true'
-    )
-
+        include_granted_scopes='true')
     request.session['state'] = state
     return RedirectResponse(authorization_url)
 
@@ -49,14 +55,15 @@ async def callback(request: Request):
     state = request.session['state']
 
     # Recreate OAuth Flow w/ state
-    flow = Flow.from_client_secrets_file(
-        CLIENT_SECRETS_FILE,
+    flow = Flow.from_client_config(
+        client_config=oauth_config,
         scopes=SCOPES,
-        state=state
-    )
+        state=state)
+    flow.redirect_uri = BASE_URL + '/api/v1/glogin/callback'    # Google redirects to here after signin
 
-    flow.redirect_uri = 'http://127.0.0.1:8000/api/v1/glogin/callback'                # Page that Google should redirect to after signin
-    auth_response = 'https://redirectmeto.com/' + str(request.url)      # Workaround for localhost, regular request.url should work if it includes https
+    # NOTE: For testing, use below line, for deployment use line 2
+    auth_response = 'https://redirectmeto.com/' + str(request.url)  # Workaround bc localhost doesn't have https, only http
+    #auth_response = str(request.url)
 
     # Trade authorized_response for access token
     flow.fetch_token(authorization_response=auth_response)
@@ -101,17 +108,19 @@ async def success(request: Request, response: Response):
         google_oauth_id=temp_user['id'],
     )
 
-    await engine.save(user)
+    user_exists = await engine.find_one(User, User.email == temp_user['email'])
+    if not user_exists:
+        await engine.save(user)     # If user doesn't already exist, store in database
 
     # Store userinfo into session + username into cookies
     request.session['userinfo'] = userinfo
     create_userinfo_cookie(userinfo['first_name'], response)
 
-    return RedirectResponse('http://localhost:3000/dashboard')
+    return {'message': 'Google login success', 'user': user}
 
 
-def create_userinfo_cookie(username: str, response: Response):
-    response.set_cookie(key='username_cookie', value=username, secure=True)
+def create_userinfo_cookie(user: str, response: Response):
+    response.set_cookie(key='username_cookie', value=user, secure=True)
     # return {'message': 'Cookie saved'}
 
 
@@ -151,13 +160,10 @@ async def events_to_dashboard(request: Request):
     events = [college_event, fafsa, visa]
     return events
 
+
 # Event + Google Calendar Stuff
-@router.get('/create_event')
-async def create_event(request: Request):
-    frontend_event = {
-        'name': 'FAFSA',
-        'date': '2024-05-02',
-    }
+@router.post('/create_event')
+async def create_event(request: Request, name: str, deadline: str):
 
     # Need to log in with Google
     try:
@@ -170,35 +176,34 @@ async def create_event(request: Request):
         # College App - colorId=1
         # FAFSA - colorId=2
         # VISA - colorId=4
-        if 'College' in frontend_event['name']:
+        if 'College' in name:
             color_id = '1'
-        elif 'FAFSA' in frontend_event['name']:
+        elif 'FAFSA' in name:
             color_id = '2'
-        elif 'VISA' in frontend_event['name']:
+        elif 'VISA' in name:
             color_id = '4'
         else:
-            return {'message': f'ERROR in event Name - {frontend_event["name"]}'}
+            return {'message': f'ERROR in event Name - {name}'}
 
-        event = make_google_event(frontend_event, color_id)
+        event = make_google_event(name, deadline, color_id)
 
         event = calendar.events().insert(calendarId=user['email'], body=event).execute()
-        print('Event created: %s' % (event.get('htmlLink')))
+        return {'event_link': event.get('htmlLink')}
 
-        return {'message': 'done'}
     except:
         print('ERROR - user not logged into Google')
         return RedirectResponse(request.url_for('login'))
 
 
-def make_google_event(my_event: dict, color_id: str):
+def make_google_event(name: str, deadline: str, color_id: str):
     event = {
         'colorId': color_id,
-        'summary': my_event['name'],
+        'summary': name,
         'start': {
-            'date': my_event['date'],
+            'date': deadline,
         },
         'end': {
-            'date': my_event['date'],
+            'date': deadline,
         },
         'reminders': {
             'useDefault': False,
