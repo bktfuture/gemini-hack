@@ -1,14 +1,14 @@
-"use client";
-import "./SignIn.css";
-import Navbar from "../../components/Navbar/Navbar";
-import Footer from "../../components/Footer/Footer";
-import Link from "next/link";
-import Image from "next/image";
-import GoogleSignIn from "../../public/icons/GoogleSignIn.svg";
-import { useRouter } from "next/navigation";
-import { useGlobalContext } from "../../context/globalContext";
-import { useState } from "react";
-import axios from "axios";
+'use client';
+import './SignIn.css';
+import Navbar from '../../components/Navbar/Navbar';
+import Footer from '../../components/Footer/Footer';
+import Link from 'next/link';
+import Image from 'next/image';
+import GoogleSignIn from '../../public/icons/GoogleSignIn.svg';
+import { useRouter } from 'next/navigation';
+import { useGlobalContext } from '../../context/globalContext';
+import { useState } from 'react';
+import axios from 'axios';
 
 function SignIn() {
   const [email, setEmail] = useState("");
@@ -42,20 +42,20 @@ function SignIn() {
       });
   }
 
-  function handleGoogleSignIn() {
-    router.push("http://127.0.0.1:8000/api/v1/glogin/login");
-  }
+	function handleGoogleSignIn() {
+		router.push('http://127.0.0.1:8000/api/v1/glogin/login');
+	}
 
-  return (
-    <div className="outer-box">
-      <Navbar />
-      <div className="center-sign-in-container">
-        <div className="sign-in-container">
-          <p className="sign-in-text add-30-margin-bottom">Sign In</p>
-          {errorMessage && <p className="error-message">{errorMessage}</p>}
-          <form onSubmit={handleSignIn}>
-            <div className="everything-above-button">
-              <label className="label" htmlFor="username">
+	return (
+		<div className="outer-box">
+			<Navbar />
+			<div className="center-sign-in-container">
+				<div className="sign-in-container">
+					<p className="sign-in-text add-30-margin-bottom">Sign In</p>
+					{errorMessage && <p className="error-message">{errorMessage}</p>}
+					<form onSubmit={handleSignIn}>
+						<div className="everything-above-button">
+							{/* <label className="label" htmlFor="username">
                 Username
               </label>
               <label className="label" htmlFor="email">

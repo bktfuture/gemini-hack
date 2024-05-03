@@ -1,0 +1,120 @@
+@font-face {
+	font-family: 'SFProTextBold';
+	src: url('../public/fonts/SF-Pro-Text-Bold.otf') format('opentype');
+}
+
+@font-face {
+	font-family: 'SFProTextRegular';
+	src: url('../public/fonts/SF-Pro-Text-Regular.otf') format('opentype');
+}
+
+@font-face {
+	font-family: 'SFProTextSemibold';
+	src: url('../public/fonts/SF-Pro-Text-Semibold.otf') format('opentype');
+}
+
+.main {
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	justify-items: center;
+	width: 100%;
+	gap: 2rem;
+}
+
+.hero {
+	padding-top: 4.7rem;
+	gap: 2rem;
+	text-align: center;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.hero h1 {
+	text-align: center;
+	justify-self: center;
+	width: 60%;
+	font-family: 'SFProTextSemibold';
+	font-size: 5rem;
+
+	background: linear-gradient(
+		90deg,
+		rgba(20, 89, 203, 1) 0%,
+		rgba(54, 103, 207, 1) 20%,
+		rgba(87, 116, 221, 1) 39%,
+		rgba(128, 124, 208, 1) 56%,
+		rgba(157, 123, 208, 1) 69%,
+		rgba(206, 119, 183, 1) 82%,
+		rgba(232, 110, 148, 1) 93%
+	);
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+}
+
+.hero p {
+	font-family: 'SFProTextSemibold';
+	font-size: 1.7rem;
+	color: black;
+}
+
+.li {
+	text-decoration: none;
+	font-family: 'SFProTextSemibold';
+	font-size: 1.2rem;
+	color: white;
+}
+.hero button {
+	border: none;
+	border-radius: 2rem;
+	background-image: linear-gradient(
+		90deg,
+		rgba(20, 89, 203, 1) 0%,
+		rgba(54, 103, 207, 1) 20%,
+		rgba(87, 116, 221, 1) 39%,
+		rgba(128, 124, 208, 1) 56%,
+		rgba(157, 123, 208, 1) 69%,
+		rgba(206, 119, 183, 1) 82%,
+		rgba(232, 110, 148, 1) 93%
+	);
+
+	padding: 1rem 1.7rem;
+}
+
+.box {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	justify-content: center;
+	padding-right: 6rem;
+	padding-left: 6rem;
+	gap: 1rem;
+}
+
+.imgbox {
+}
+
+.col {
+	display: flex;
+	flex-direction: column;
+}
+
+.col h1 {
+	color: #fd71af;
+	font-family: 'SFProTextSemibold';
+	font-size: 1.4rem;
+}
+
+.hBig {
+}
+
+.h2 {
+	text-align: center;
+	color: #2b3674;
+	font-size: 1.7rem;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+	font-family: 'SFProTextSemibold';
+}
