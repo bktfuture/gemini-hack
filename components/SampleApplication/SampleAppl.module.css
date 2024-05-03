@@ -1,0 +1,46 @@
+@font-face {
+	font-family: 'San Francisco';
+	font-weight: 400;
+	src: url('https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff');
+}
+@font-face {
+	font-family: 'SFProTextMedium';
+	src: url('../../public/fonts/SF-Pro-Text-Medium.otf') format('opentype');
+}
+@font-face {
+	font-family: 'San Francisco';
+	font-weight: 600;
+	src: url('https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-semibold-webfont.woff');
+}
+
+@font-face {
+	font-family: 'San Francisco';
+	font-weight: 500;
+	src: url('https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-medium-webfont.woff');
+}
+
+.flex {
+	display: flex;
+	flex-direction: column;
+	font-family: 'SFProTextMedium';
+	justify-content: center;
+	align-items: center;
+}
+
+.textApl {
+	font-size: 1.6rem;
+	color: rgb(253, 113, 175);
+}
+
+.btnApl {
+	background-color: #fd71af;
+	color: white;
+	border: none;
+	cursor: pointer;
+	border-radius: 1rem;
+	font-weight: 800;
+	padding: 1rem 3rem;
+	margin-bottom: 3rem;
+	box-shadow: rgb(253, 113, 175, 0.25) 0px 10px 10px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px,
+		rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
