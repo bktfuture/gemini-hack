@@ -1,6 +1,8 @@
 import "./ChatBot.css";
 import Image from "next/image";
 import React, { useState, useRef } from "react";
+import pdfIcon from "../../../public/icons/pdfIcon.svg";
+import profileIcon from "../../../public/icons/profileIcon.svg";
 import Message from "./Message";
 import ChatBotSendMessage from "../../../public/icons/ChatBotSendMessage.svg";
 import InnerChatBotSVG from "../../../public/icons/InnerChatBotIcon.svg";
@@ -15,6 +17,7 @@ interface MessageProps {
   uploadedImage: File | undefined;
   username: string;
   question: string;
+  pdfIcon: string | undefined;
 }
 
 function ChatBot() {
@@ -27,11 +30,6 @@ function ChatBot() {
 
   const submit = async (e: any) => {
     e.preventDefault();
-    /*
-    console.log("TEST");
-    console.log(userInfo.firstName);
-    console.log(userInfo.user_id);
-    */
 
     const formData = new FormData();
     formData.append("message", currMessage);
@@ -42,8 +40,8 @@ function ChatBot() {
 
     try {
       const response = await axios.post(
-        //`http://localhost:8000/api/v1/gemini/message/${userInfo.user_id}`,
-        `http://localhost:8000/api/v1/gemini/message/6633ce2431d7cd5011af3ed0`,
+        `http://localhost:8000/api/v1/gemini/message/${userInfo.user_id}`,
+        //`http://localhost:8000/api/v1/gemini/message/6633ce2431d7cd5011af3ed0`,
         formData,
         {
           headers: {
@@ -57,17 +55,19 @@ function ChatBot() {
       setMessages((prevMessages) => [
         ...prevMessages,
         {
-          profileImage: InnerChatBotSVG,
+          profileImage: profileIcon,
           uploadedImage: imageToUpload,
-          username: "Kyle",
+          username: userInfo.firstName,
           question: currMessage,
+          pdfIcon: pdfIcon,
         },
         //Fill in Gemini Info here.
         {
           profileImage: InnerChatBotSVG,
-          uploadedImage: undefined,
+          uploadedImage: pdfIcon,
           username: "Gemini AI",
           question: response.data.response,
+          pdfIcon: pdfIcon,
         },
       ]);
 
@@ -106,8 +106,6 @@ function ChatBot() {
       </div>
       <hr className="separator" />
       <div className="below-top">
-
-        
         <div className="message-box">
           <div className="message">
             <div className="name-header">
@@ -115,7 +113,9 @@ function ChatBot() {
               <p className="name">Gemini AI</p>
             </div>
             <div className="individual-message-content">
-              <p className="multicolored-hello-message">Hello, Kyle</p>
+              <p className="multicolored-hello-message">
+                Hello, {userInfo.firstName}
+              </p>
               <p className="question">
                 What documents can I help you with today?
               </p>
@@ -126,22 +126,21 @@ function ChatBot() {
           ))}
         </div>
 
-
-
-        <div className="input-msg-box" >
+        <div className="input-msg-box">
           <form ref={form} onSubmit={submit}>
             <div className="show-image-or-loading">
+              {/*
               {imageUploadState === "loading" && <p>Loading...</p>}
               {imageUploadState === "uploaded" && imageToUpload && (
                 <Image
                   className="image-in-chat"
-                  src={URL.createObjectURL(imageToUpload)}
-                  /*src={imageToUpload}*/
+                  src={pdfIcon}
                   alt="Uploaded Image"
-                  width={300} // Replace with desired width
-                  height={200} // Optional: Add height if needed
+                  width={100} // Replace with desired width
+                  height={100} // Optional: Add height if needed
                 />
               )}
+            */}
               <div className="input-or-upload-section">
                 <input
                   className="prompt-gemini-box"

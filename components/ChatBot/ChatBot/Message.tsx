@@ -5,6 +5,7 @@ interface MessageProps {
   uploadedImage: File | undefined;
   username: string;
   question: string;
+  pdfIcon: string | undefined;
 }
 
 function Message({
@@ -12,24 +13,31 @@ function Message({
   uploadedImage,
   username,
   question,
+  pdfIcon,
 }: MessageProps) {
   return (
     <div className="message">
       <div className="name-header">
-        <Image src={profileImage} alt="message icon" />
+        <Image
+          style={{ height: "21px", width: "21px" }}
+          src={profileImage}
+          alt="message icon"
+        />
         <p className="name">{username}</p>
       </div>
       <div className="individual-message-content">
         <p className="question">{question}</p>
-        {uploadedImage ? (
+        {/*
+        {uploadedImage && pdfIcon ? (
           <Image
             className="uploaded-image-in-chat"
-            src={URL.createObjectURL(uploadedImage)}
+            src={pdfIcon}
             alt="Uploaded image in chat"
             width={50} // Replace with desired width
             height={50} // Optional: Add height if needed
           />
         ) : null}
+      */}
       </div>
     </div>
   );
