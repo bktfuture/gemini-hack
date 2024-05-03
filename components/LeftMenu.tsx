@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import styles from './leftmenu.module.css';
 import { IoSettingsOutline } from 'react-icons/io5';
@@ -9,8 +10,10 @@ import { IoLogOut } from 'react-icons/io5';
 import { IoDocumentTextOutline } from 'react-icons/io5';
 import { MdSpaceDashboard } from 'react-icons/md';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 const LeftMenu = () => {
+	const pathname = usePathname();
 	// const [isActive, setActive] = useState(true);
 
 	// const toggleClass = () => {

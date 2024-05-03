@@ -1,7 +1,6 @@
 import styles from './visa.module.css';
 import FasfaTasks from '../fafsa/FasfaTasks';
 import SampleApplication from '@/components/SampleApplication/SampleApplication';
-import Link from 'next/link';
 
 function Visa() {
 	const name = 'Visa Application';

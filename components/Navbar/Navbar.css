@@ -1,115 +1,114 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 @font-face {
-    font-family: 'JostSemiBold';
-    src: url('../../public/fonts/Jost-SemiBold.ttf') format('truetype');
-  }
+	font-family: 'JostSemiBold';
+	src: url('../../public/fonts/Jost-SemiBold.ttf') format('truetype');
+}
 
 @font-face {
-    font-family: 'JostMedium';
-    src: url('../../public/fonts/Jost-Medium.ttf') format('truetype');
-  }
+	font-family: 'JostMedium';
+	src: url('../../public/fonts/Jost-Medium.ttf') format('truetype');
+}
 
 @font-face {
-    font-family: 'SFProMedium';
-    src: url('../../public/fonts/SF-Pro-Text-Medium.otf') format('truetype');
-  }
+	font-family: 'SFProMedium';
+	src: url('../../public/fonts/SF-Pro-Text-Medium.otf') format('truetype');
+}
 
 .navbar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 20px;
+	padding-bottom: 1rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-top: 20px;
+	z-index: -1;
 }
 
 .left-nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 }
 
 .right-nav {
-  display:flex;
-  flex-direction: row;
-  justify-content:space-between;
-  align-items:center;
-  width: auto;
-  margin-right: 80px;
-  gap: 35px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: auto;
+	margin-right: 80px;
+	gap: 35px;
 }
 
 .navbar-gemini-docs-logo {
-  width: 300px;
-  height: 50px;
+	width: 300px;
+	height: 50px;
 }
 
 .navbar-about-text {
-  font-family: 'SFProMedium', Arial, Helvetica, sans-serif;
-  font-size: 18px;
-  line-height: 150%;
-  color: #131314;
+	font-family: 'SFProMedium', Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	line-height: 150%;
+	color: #131314;
 }
 
 .navbar-fafsa-text {
-  font-family: 'SFProMedium', Arial, Helvetica, sans-serif;
-  font-size: 18px;
-  line-height: 150%;
-  color: #131314;
+	font-family: 'SFProMedium', Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	line-height: 150%;
+	color: #131314;
 }
 
 .navbar-visa-text {
-  font-family: 'JostMedium', Arial, Helvetica, sans-serif;
-  font-size: 18px;
-  line-height: 150%;
-  color: #131314;
+	font-family: 'JostMedium', Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	line-height: 150%;
+	color: #131314;
 }
 
 .navbar-university-applications-text {
-  font-family: 'JostMedium', Arial, Helvetica, sans-serif;
-  font-size: 18px;
-  line-height: 150%;
-  color: #131314;
+	font-family: 'JostMedium', Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	line-height: 150%;
+	color: #131314;
 }
 
 .sign-in-button {
-  font-family: 'SFProMedium', Arial, Helvetica, sans-serif;
-  border-radius: 30px;
-  border: none;
-  width: 112px;
-  height: 43px;
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-top: 16px;
-  padding-bottom: 16px;
-  color: #FBFBFB;
-  background: linear-gradient(to right, 
-  #4A90E7 0%,
-  #8779CC 55%,
-  #CB6671 100%);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+	font-family: 'SFProMedium', Arial, Helvetica, sans-serif;
+	border-radius: 30px;
+	border: none;
+	width: 112px;
+	height: 43px;
+	padding-left: 24px;
+	padding-right: 24px;
+	padding-top: 16px;
+	padding-bottom: 16px;
+	color: #fbfbfb;
+	background: linear-gradient(to right, #4a90e7 0%, #8779cc 55%, #cb6671 100%);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
 }
 
-a:link { 
-	text-decoration: none; 
-} 
+a:link {
+	text-decoration: none;
+}
 
-a:visited { 
-text-decoration: none; 
-} 
+a:visited {
+	text-decoration: none;
+}
 
-a:hover { 
-text-decoration: none; 
-} 
+a:hover {
+	text-decoration: none;
+}
 
-a:active { 
-text-decoration: none; 
+a:active {
+	text-decoration: none;
 }
