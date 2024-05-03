@@ -28,15 +28,22 @@ function ChatBot() {
   const submit = async (e: any) => {
     e.preventDefault();
     /*
+    console.log("TEST");
+    console.log(userInfo.firstName);
+    console.log(userInfo.user_id);
+    */
+
     const formData = new FormData();
     formData.append("message", currMessage);
     if (imageToUpload) {
       formData.append("file", imageToUpload);
     }
+    console.log(formData.get("message"));
 
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000/api/v1/gemini/message/58326792649238742`,
+        //`http://localhost:8000/api/v1/gemini/message/${userInfo.user_id}`,
+        `http://localhost:8000/api/v1/gemini/message/6633ce2431d7cd5011af3ed0`,
         formData,
         {
           headers: {
@@ -44,7 +51,26 @@ function ChatBot() {
           },
         }
       );
-      console.log("Response:", response.data);
+      //console.log("Response:", response.data);
+      console.log(response);
+
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          profileImage: InnerChatBotSVG,
+          uploadedImage: imageToUpload,
+          username: "Kyle",
+          question: currMessage,
+        },
+        //Fill in Gemini Info here.
+        {
+          profileImage: InnerChatBotSVG,
+          uploadedImage: undefined,
+          username: "Gemini AI",
+          question: response.data.response,
+        },
+      ]);
+
       setCurrMessage(""); // Clear message after successful send
       setImageToUpload(undefined); // Clear file selection after successful send
     } catch (error) {
@@ -61,83 +87,9 @@ function ChatBot() {
       console.log(data);
       console.log(data.get("currMessage"));
 
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      {
-        profileImage: InnerChatBotSVG,
-        uploadedImage: imageToUpload,
-        username: userInfo.firstName,
-        question: message,
-      },
-      //Fill in Gemini Info here.
-      {
-        profileImage: InnerChatBotSVG,
-        uploadedImage: undefined,
-        username: "Gemini AI",
-        question: "Sample Gemini response",
-      },
-    ]);
-  };
-    */
-  };
-
-  const handleSendMessage = (message: string) => {
-    /*
-    Make API calls here, and change the second object below 
-    to the response because that's the Gemini AI prompt.
-    */
-
-    if (message && imageToUpload) {
-      /* 
-      Send message and file.
-      */
-      axios
-        .post(
-          `http://127.0.0.1:8000/api/v1/gemini/message/${userInfo.user_id}`,
-          null,
-          {
-            params: {
-              file: imageToUpload,
-              message: message,
-            },
-          }
-        )
-        .then((response) => {
-          console.log("Response:", response.data);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    } else if (message && !imageToUpload) {
       /*
-      Send only message.
-      */
-    } else if (imageToUpload && !message) {
-      /*
-      Send only file.
-      */
-    } else {
-      //They probably did something they weren't supposed to...
-      return;
+       */
     }
-
-    //I think I can copy this code into the conditional statements above if needed.
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      {
-        profileImage: InnerChatBotSVG,
-        uploadedImage: imageToUpload,
-        username: userInfo.firstName,
-        question: message,
-      },
-      //Fill in Gemini Info here.
-      {
-        profileImage: InnerChatBotSVG,
-        uploadedImage: undefined,
-        username: "Gemini AI",
-        question: "Sample Gemini response",
-      },
-    ]);
   };
 
   const handleUploadImage = (e: any) => {
@@ -161,9 +113,7 @@ function ChatBot() {
               <p className="name">Gemini AI</p>
             </div>
             <div className="individual-message-content">
-              <p className="multicolored-hello-message">
-                Hello, {userInfo.firstName}
-              </p>
+              <p className="multicolored-hello-message">Hello, Kyle</p>
               <p className="question">
                 What documents can I help you with today?
               </p>

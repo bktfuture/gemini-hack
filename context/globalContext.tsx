@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from "react";
 
 // Define the UserInfo interface
 interface UserInfo {
@@ -22,9 +28,9 @@ const GlobalContext = createContext<ContextProps>({
     email: "",
     firstName: "",
     lastName: "",
-    user_id: ""
+    user_id: "",
   },
-  setUserInfo: () => {}
+  setUserInfo: () => {},
 });
 // Create the provider component
 export const GlobalContextProvider = ({ children }: any) => {
@@ -32,15 +38,14 @@ export const GlobalContextProvider = ({ children }: any) => {
     email: "",
     firstName: "",
     lastName: "",
-    user_id: ""
+    user_id: "",
   });
-  const setUserInfo: ContextProps['setUserInfo'] = (key, value) => {
-    setUserInfoState(prevState => ({
+  const setUserInfo: ContextProps["setUserInfo"] = (key, value) => {
+    setUserInfoState((prevState) => ({
       ...prevState,
-      [key]: value
+      [key]: value,
     }));
   };
-
 
   return (
     <GlobalContext.Provider value={{ userInfo, setUserInfo }}>

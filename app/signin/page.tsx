@@ -11,6 +11,7 @@ import { useState } from "react";
 import axios from "axios";
 
 function SignIn() {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
@@ -21,13 +22,16 @@ function SignIn() {
     axios
       .get("http://127.0.0.1:8000/api/v1/user/auth-user", {
         params: {
-          email: userInfo.email,
+          email: email,
           password: password,
         },
       })
       .then((response) => {
         setUserInfo("firstName", response.data.user_info.first_name);
-        router.push("dashboard");
+        setUserInfo("lastName", response.data.user_info.last_name);
+        setUserInfo("user_id", response.data.user_info.id);
+        setUserInfo("email", response.data.user_info.email);
+        router.push("/dashboard");
       })
       .catch((error) => {
         setErrorMessage("Please enter your email and password");
@@ -62,8 +66,8 @@ function SignIn() {
                 type="email"
                 id="email"
                 placeholder="username@gmail.com"
-                value={userInfo.email}
-                onChange={(e) => setUserInfo("email", e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
               <label className="label" htmlFor="password">

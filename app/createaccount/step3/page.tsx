@@ -42,7 +42,6 @@ function CreateAccount3() {
         },
       })
       .then((response) => {
-        console.log("Response:", response.data);
         router.push("dashboard");
       })
       .catch((error) => {

@@ -21,26 +21,25 @@ async def send_message(user_id: str, message: Annotated[str, Form(...)], file: U
     if not user:
         raise HTTPException(status_code=400, detail='user not found')
 
-    # If there is a file upload and it is a PDF, then embed, else use current embeddings
-    if file and file.content_type == 'application/pdf':
-        file_id = await upload_file_to_gridfs(user_id, file)
-        try:
-            await save_file_in_user(user_id, file_id, file)
-        except Exception:
-            raise HTTPException(status_code=500, detail="Unable to link file to user account")
+    qdrant = Qdrant(
+        client=qdrant_client,
+        collection_name=QDRANT_COLLECTION_NAME,
+        embeddings=GoogleGenerativeAIEmbeddings(model="models/text-embedding-004", google_api_key=GEMINI_API_KEY)
+    )
 
-        # Index (load file and then embed)
-        docs = await load_pdf_from_gridfs(file_id)
-        qdrant = embed_document(docs)
-    elif file and file.content_type != 'application/pdf':
-        # Create Qdrant connection to use existing embeddings
-        qdrant = Qdrant(
-            client=qdrant_client,
-            collection_name=QDRANT_COLLECTION_NAME,
-            embeddings=GoogleGenerativeAIEmbeddings(model="models/text-embedding-004", google_api_key=GEMINI_API_KEY)
-        )
-    else:
-        raise HTTPException(status_code=400, detail='File type not supported (Only PDFs)')
+    if file:
+        if file.content_type == 'application/pdf':
+            file_id = await upload_file_to_gridfs(user_id, file)
+            try:
+                await save_file_in_user(user_id, file_id, file)
+            except Exception:
+                raise HTTPException(status_code=500, detail="Unable to link file to user account")
+
+            # Index (load file and then embed)
+            docs = await load_pdf_from_gridfs(file_id)
+            qdrant = embed_document(docs)
+        else:
+            raise HTTPException(status_code=400, detail='File type not supported (Only PDFs)')
 
     # Create RAG chain
     response = run_rag_chain(message, qdrant, user_id)
