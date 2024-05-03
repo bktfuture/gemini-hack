@@ -64,7 +64,7 @@
 }
 /* TEXT BLUE */
 .pBlue {
-	color: #4a90e7;
+	color: #fd71af;
 }
 .pBlueN {
 	color: #2b3674;
@@ -88,7 +88,7 @@
 .pbox {
 	border-left: thick solid #e1e1e1;
 	padding-left: 2rem;
-	color: #a3aed0;
+	color: #4453a7;
 	font-weight: 400;
 }
 
@@ -172,4 +172,14 @@
 .checkbox {
 	/*padding: 5px;*/
 	border-radius: 50%;
+}
+
+.pbox ul {
+	color: #4453a7;
+}
+
+.linkbtn {
+	text-decoration: none;
+	color: white;
+	cursor: pointer;
 }

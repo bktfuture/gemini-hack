@@ -1,6 +1,7 @@
 import styles from './visa.module.css';
 import FasfaTasks from '../fafsa/FasfaTasks';
 import SampleApplication from '@/components/SampleApplication/SampleApplication';
+import Link from 'next/link';
 
 function Visa() {
 	const name = 'Visa Application';
@@ -48,7 +49,11 @@ function Visa() {
 				</div>
 
 				<p className={styles.tip}>Keep these records! You may need them again.</p>
-				<div className={styles.btn}>Start your Visa application</div>
+				<div className={styles.btn}>
+					<a className={styles.linkbtn} target="_blank" href="https://travel.state.gov/content/travel/en/us-visas/study/student-visa.html">
+						Start your Visa application
+					</a>
+				</div>
 				<h2 className={styles.h2}>The Visa Interview</h2>
 				<div className={styles.pbox}>
 					<p>
